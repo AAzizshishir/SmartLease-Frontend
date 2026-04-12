@@ -9,8 +9,8 @@ export const landlordRoutes: Route[] = [
         url: "/",
       },
       {
-        title: "Properties",
-        url: "/properties",
+        title: "Property",
+        url: "/property",
       },
     ],
   },
