@@ -1,3 +1,5 @@
+export type PropertyType = "apartment" | "house" | "commercial";
+
 export interface Property {
   id: string;
   name: string;
@@ -14,4 +16,13 @@ export interface Property {
   deleted_at: string | null;
 
   created_at: string;
+}
+
+export interface ICreateProperty {
+  name: string;
+  address: string;
+  city: string;
+  type: PropertyType;
+  total_units: number;
+  description?: string;
 }

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Button } from "./ui/button";
 import { Property } from "@/types/property.type";
 import Link from "next/link";
+import { ImageIcon } from "lucide-react";
 
 const PropertyCard = () => {
   const { data, isLoading } = useGetProperties();
@@ -20,13 +21,20 @@ const PropertyCard = () => {
           className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition"
         >
           {/* Image */}
-          <Image
-            src={property.image}
-            alt={property.name}
-            className="w-full h-48 object-cover"
-            width={400}
-            height={400}
-          />
+          {property.image?.length > 0 ? (
+            <Image
+              src={property.image}
+              alt={property.name}
+              className="w-full h-48 object-cover rounded-t-lg"
+              width={400}
+              height={400}
+            />
+          ) : (
+            <div className="w-full h-48 bg-muted flex flex-col items-center justify-center rounded-t-lg gap-2">
+              <ImageIcon className="h-8 w-8 text-muted-foreground" />
+              <p className="text-xs text-muted-foreground">No image</p>
+            </div>
+          )}
 
           {/* Content */}
           <div className="p-4 space-y-2">
@@ -34,10 +42,6 @@ const PropertyCard = () => {
 
             <p className="text-sm text-gray-500 capitalize">
               {property.type} • {property.total_units} Units
-            </p>
-
-            <p className="text-sm text-gray-600 line-clamp-2">
-              {property.description}
             </p>
 
             <p className="text-sm text-gray-500">
@@ -49,7 +53,7 @@ const PropertyCard = () => {
             </p>
 
             <Button className="w-full mt-2 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
-              <Link href={`/property/${property.id}`}>View Units</Link>
+              <Link href={`/property/${property.id}`}>View Details</Link>
             </Button>
           </div>
         </div>

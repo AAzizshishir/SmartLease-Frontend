@@ -1,4 +1,5 @@
 import { api } from "@/lib/axios/http-client";
+import { ICreateProperty } from "@/types/property.type";
 
 export const propertyService = {
   getAll: async (params?: Record<string, unknown>) => {
@@ -11,20 +12,20 @@ export const propertyService = {
     return data;
   },
 
-  create: async (payload: FormData) => {
-    const { data } = await api.post("/properties", payload, {
-      headers: { "Content-Type": "multipart/form-data" },
+  create: async (payload: ICreateProperty) => {
+    const { data } = await api.post("/api/properties", payload, {
+      headers: { "Content-Type": "application/json" },
     });
     return data;
   },
 
-  update: async (id: string, payload: unknown) => {
-    const { data } = await api.patch(`/properties/${id}`, payload);
+  update: async (id: string, payload: Partial<ICreateProperty>) => {
+    const { data } = await api.patch(`/api/properties/${id}`, payload);
     return data;
   },
 
   delete: async (id: string) => {
-    const { data } = await api.delete(`/properties/${id}`);
+    const { data } = await api.delete(`/api/properties/${id}`);
     return data;
   },
 };

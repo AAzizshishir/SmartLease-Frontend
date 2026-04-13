@@ -12,6 +12,10 @@ export const landlordRoutes: Route[] = [
         title: "Property",
         url: "/property",
       },
+      {
+        title: "Add Property",
+        url: "/add-property",
+      },
     ],
   },
 ];
