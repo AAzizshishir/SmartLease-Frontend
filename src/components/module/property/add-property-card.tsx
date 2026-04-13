@@ -1,22 +1,22 @@
 "use client";
 
 import { useCreateProperty } from "@/hooks/useProperties";
-import { Button } from "./ui/button";
+import { Button } from "../../ui/button";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "./ui/card";
+} from "../../ui/card";
 import { useForm } from "@tanstack/react-form";
 import {
   CreatePropertyInput,
   createPropertySchema,
 } from "@/validations/property.validation";
-import { Field, FieldError, FieldGroup } from "./ui/field";
-import { Input } from "./ui/input";
-import { Textarea } from "./ui/textarea";
+import { Field, FieldError, FieldGroup } from "../../ui/field";
+import { Input } from "../../ui/input";
+import { Textarea } from "../../ui/textarea";
 import { PropertyType } from "@/types/property.type";
 
 const AddPropertyCard = () => {

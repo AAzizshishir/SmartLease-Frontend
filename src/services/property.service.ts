@@ -7,6 +7,11 @@ export const propertyService = {
     return data;
   },
 
+  getMy: async (params?: Record<string, unknown>) => {
+    const { data } = await api.get("/api/properties/my", { params });
+    return data;
+  },
+
   getById: async (id: string) => {
     const { data } = await api.get(`/api/properties/${id}`);
     return data;

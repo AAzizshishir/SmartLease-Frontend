@@ -1,29 +1,31 @@
 "use client";
 
-import { useGetProperties } from "@/hooks/useProperties";
+import { useGetMyProperties } from "@/hooks/useProperties";
 import Image from "next/image";
-import { Button } from "./ui/button";
 import { Property } from "@/types/property.type";
 import Link from "next/link";
 import { ImageIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const PropertyCard = () => {
-  const { data, isLoading } = useGetProperties();
-  console.log(data);
+  const { data, isLoading } = useGetMyProperties();
+  // console.log(data?.data.data);
+  const property = data?.data?.data;
+  console.log(property);
 
   if (isLoading) return <div>Loading...</div>;
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {data?.data?.map((property: Property) => (
+      {property.map((property: Property) => (
         <div
           key={property.id}
           className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition"
         >
           {/* Image */}
-          {property.image?.length > 0 ? (
+          {property.images?.length > 0 ? (
             <Image
-              src={property.image}
+              src={property?.images[0].url}
               alt={property.name}
               className="w-full h-48 object-cover rounded-t-lg"
               width={400}

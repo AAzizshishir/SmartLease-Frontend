@@ -1,4 +1,4 @@
-import PropertyCard from "@/components/property-card";
+import PropertyCard from "@/components/module/property/property-card";
 
 const PropertyPage = () => {
   return (

@@ -1,4 +1,4 @@
-import PropertyDetailsCard from "@/components/property-details-card";
+import PropertyDetailsCard from "@/components/module/property/property-details-card";
 
 const PropertyDetailsPage = () => {
   return (

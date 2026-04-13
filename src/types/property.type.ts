@@ -1,4 +1,13 @@
+import { Unit } from "./unit.type";
+
 export type PropertyType = "apartment" | "house" | "commercial";
+
+export interface Images {
+  id: string;
+  property_id: string;
+  url: string;
+  is_primary: boolean;
+}
 
 export interface Property {
   id: string;
@@ -6,7 +15,8 @@ export interface Property {
   description: string;
   address: string;
   city: string;
-  image: string;
+  images: Images[];
+  units: Unit[];
   type: string;
   total_units: number;
 
