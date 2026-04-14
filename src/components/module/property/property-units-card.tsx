@@ -29,7 +29,11 @@ const PropertyUnitsCard = ({
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <CardTitle className="text-base">Units</CardTitle>
-          <Button size="sm" className="gap-1">
+          <Button
+            size="sm"
+            className="gap-1"
+            onClick={() => router.push(`/property/${propertyId}/add-unit`)}
+          >
             <Plus className="h-3 w-3" />
             Add unit
           </Button>
@@ -74,10 +78,10 @@ const PropertyUnitsCard = ({
                   <TableCell>
                     <Button
                       size="sm"
-                      variant="ghost"
+                      // variant="ghost"
                       onClick={() =>
                         router.push(
-                          `/landlord/properties/${propertyId}/units/${unit.id}`,
+                          `/properties/${propertyId}/units/${unit.id}`,
                         )
                       }
                     >

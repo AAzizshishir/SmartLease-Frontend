@@ -1,13 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import {
   useDeletePropertyImage,
@@ -25,6 +18,7 @@ const PropertyImageCard = ({
   images: Images[];
 }) => {
   const [files, setFiles] = useState<File[]>([]);
+  const [showUpload, setShowUpload] = useState(false);
   const { mutate: addImage, isPending } = useUploadPropertyImages(propertyId);
 
   const { mutate: deleteImage, isPending: isDeleting } =
@@ -72,14 +66,16 @@ const PropertyImageCard = ({
 
       <div className="space-y-4 flex justify-end mt-2">
         {/* Add Image Button */}
-        <Dialog>
-          <DialogTrigger>
-            <Button>Add Image</Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Select Images</DialogTitle>
-            </DialogHeader>
+        {!showUpload ? (
+          <Button onClick={() => setShowUpload(true)}>Add Image</Button>
+        ) : (
+          <div className="w-full space-y-4">
+            <div className="flex justify-between items-center">
+              <h3 className="text-lg font-semibold">Select Images</h3>
+              <Button variant="outline" onClick={() => setShowUpload(false)}>
+                Cancel
+              </Button>
+            </div>
             <Input
               type="file"
               accept="image/*"
@@ -105,8 +101,8 @@ const PropertyImageCard = ({
             >
               {isPending ? "Uploading..." : "Upload Images"}
             </Button>
-          </DialogContent>
-        </Dialog>
+          </div>
+        )}
       </div>
     </div>
   );
