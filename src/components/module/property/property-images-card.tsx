@@ -1,8 +1,21 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import {
+  useDeletePropertyImage,
+  useUploadPropertyImages,
+} from "@/hooks/useProperties";
 import { Images } from "@/types/property.type";
 import Image from "next/image";
-import Link from "next/link";
+import { useState } from "react";
 
 const PropertyImageCard = ({
   propertyId,
@@ -11,23 +24,89 @@ const PropertyImageCard = ({
   propertyId: string;
   images: Images[];
 }) => {
+  const [files, setFiles] = useState<File[]>([]);
+  const { mutate: addImage, isPending } = useUploadPropertyImages(propertyId);
+
+  const { mutate: deleteImage, isPending: isDeleting } =
+    useDeletePropertyImage(propertyId);
+
+  const handleUpload = () => {
+    if (files.length === 0) return;
+    const formData = new FormData();
+    files.forEach((file) => {
+      formData.append("images", file);
+    });
+    addImage(formData);
+  };
+
   return (
-    <div className="border p-4 rounded-2xl">
-      <div className="grid grid-cols-3 gap-2 overflow-x-auto">
-        {images.map((img) => (
-          <Image
-            key={img.id}
-            src={img.url}
-            alt="Images"
-            className="rounded-lg"
-            height={400}
-            width={300}
-          />
-        ))}
-      </div>
-      <div className="flex justify-end mt-2">
-        <Button>Add Image</Button>
-        <Button>Delete Image</Button>
+    <div className="border p-4 rounded-2xl" data-property-id={propertyId}>
+      {images.length === 0 ? (
+        <p className="text-sm text-muted-foreground text-center py-6">
+          No images yet. Add your first image.
+        </p>
+      ) : (
+        <div className="grid grid-cols-3 gap-2 overflow-x-auto">
+          {images.map((img) => (
+            <div key={img.id} className="flex flex-col gap-2">
+              <div className="w-full h-48 relative">
+                <Image
+                  src={img.url}
+                  alt="Property image"
+                  fill
+                  className="rounded-lg object-cover"
+                />
+              </div>
+              <Button
+                onClick={() => deleteImage(img.id)}
+                variant="destructive"
+                size="sm"
+                disabled={isDeleting}
+              >
+                Delete Image
+              </Button>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <div className="space-y-4 flex justify-end mt-2">
+        {/* Add Image Button */}
+        <Dialog>
+          <DialogTrigger>
+            <Button>Add Image</Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Select Images</DialogTitle>
+            </DialogHeader>
+            <Input
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={(e) => {
+                const selectedFiles = e.target.files
+                  ? Array.from(e.target.files)
+                  : [];
+                setFiles(selectedFiles);
+              }}
+            />
+            {files.length > 0 && (
+              <ul className="mt-2 text-sm list-disc pl-4">
+                {files.map((file, idx) => (
+                  <li key={idx}>{file.name}</li>
+                ))}
+              </ul>
+            )}
+            <Button
+              onClick={handleUpload}
+              disabled={isPending}
+              className="mt-4"
+            >
+              {isPending ? "Uploading..." : "Upload Images"}
+            </Button>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );

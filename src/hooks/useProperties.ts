@@ -39,35 +39,32 @@ export const useCreateProperty = () => {
   });
 };
 
-// // Images
-// export const useUploadPropertyImages = (propertyId: string) => {
-//   const queryClient = useQueryClient();
+// Images
+export const useUploadPropertyImages = (propertyId: string) => {
+  return useMutation({
+    mutationFn: (images: FormData) =>
+      propertyService.addImage(propertyId, images),
+    onSuccess: () => {
+      toast.success("Image added successfully");
+    },
+    onError: (error) => {
+      toast.error(error?.message ?? "Something went wrong");
+    },
+  });
+};
 
-//   return useMutation({
-//     mutationFn: (files: FileList) => {
-//       const formData = new FormData();
-//       Array.from(files).forEach((f) => formData.append("images", f));
-//       return api.post(`/properties/${propertyId}/images`, formData, {
-//         headers: { "Content-Type": "multipart/form-data" },
-//       });
-//     },
-//     onSuccess: () => {
-//       queryClient.invalidateQueries({ queryKey: ["property", propertyId] });
-//       toast.success("Images uploaded");
-//     },
-//     onError: () => toast.error("Upload failed"),
-//   });
-// };
+export const useDeletePropertyImage = (propertyId: string) => {
+  const queryClient = useQueryClient();
 
-// export const useDeletePropertyImage = (propertyId: string) => {
-//   const queryClient = useQueryClient();
-
-//   return useMutation({
-//     mutationFn: (imageId: string) =>
-//       api.delete(`/properties/${propertyId}/images/${imageId}`),
-//     onSuccess: () => {
-//       queryClient.invalidateQueries({ queryKey: ["property", propertyId] });
-//       toast.success("Image deleted");
-//     },
-//   });
-// };
+  return useMutation({
+    mutationFn: (imageId: string) =>
+      propertyService.deleteImage(propertyId, imageId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["properties", propertyId] });
+      toast.success("Image deleted");
+    },
+    onError: (error) => {
+      toast.error(error?.message ?? "Something went wrong");
+    },
+  });
+};
