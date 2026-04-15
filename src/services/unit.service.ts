@@ -26,17 +26,17 @@ export const unitService = {
   },
 
   deleteImage: async (unitId: string, imageId: string) => {
-    const { data } = await api.delete(`/ubit/${unitId}/images/${imageId}`);
+    const { data } = await api.delete(`/unit/${unitId}/images/${imageId}`);
     return data;
   },
 
-  update: async (id: string, payload: Partial<Unit>) => {
-    const { data } = await api.patch(`/properties/${id}`, payload);
+  update: async (unitId: string, payload: Partial<Unit>) => {
+    const { data } = await api.put(`/unit/${unitId}`, payload);
     return data;
   },
 
-  delete: async (id: string) => {
-    const { data } = await api.delete(`/properties/${id}`);
+  delete: async (unitId: string) => {
+    const { data } = await api.delete(`/unit/${unitId}`);
     return data;
   },
 };

@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { useDeleteUnitImage, useUploadUnitImages } from "@/hooks/useUnits";
 import { useSession } from "@/lib/auth-client";
 import { AppSession } from "@/types/session.type";
-import { Images, Unit } from "@/types/unit.type";
+import { Unit } from "@/types/unit.type";
 import Image from "next/image";
 import { useState } from "react";
 

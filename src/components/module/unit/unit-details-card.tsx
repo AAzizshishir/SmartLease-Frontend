@@ -18,10 +18,8 @@ import UnitImageCard from "./unit-image-card";
 const UnitDetailsCard = () => {
   const params = useParams();
   const router = useRouter();
-  const id = params.unit_id as string;
-  console.log(id);
-  const { data, isLoading } = useGetUnitDetails(id);
-  console.log(data);
+  const unitId = params.unit_id as string;
+  const { data, isLoading } = useGetUnitDetails(unitId);
   const unit = data?.data;
 
   const { data: sessionData } = useSession();
@@ -43,7 +41,7 @@ const UnitDetailsCard = () => {
         Back
       </Button>
       {/* Images Section */}
-      <UnitImageCard unitId={id} unit={unit} />
+      <UnitImageCard unitId={unitId} unit={unit} />
 
       <Card className="w-full max-w-lg">
         <CardHeader>
@@ -99,7 +97,12 @@ const UnitDetailsCard = () => {
         </CardContent>
         {role === "LANDLORD" && (
           <CardFooter className="flex justify-end space-x-2">
-            <Button variant="outline">Edit Unit</Button>
+            <Button
+              variant="outline"
+              onClick={() => router.push(`/edit-unit/${unitId}`)}
+            >
+              Edit Unit
+            </Button>
             <Button variant="destructive">Delete Unit</Button>
           </CardFooter>
         )}

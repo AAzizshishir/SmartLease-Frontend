@@ -1,4 +1,5 @@
 import { unitService } from "@/services/unit.service";
+import { Unit } from "@/types/unit.type";
 import { CreateUnitInput } from "@/validations/unit.validation";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
@@ -23,6 +24,21 @@ export const useGetUnitDetails = (unitId: string) => {
   return useQuery({
     queryKey: ["unit", unitId],
     queryFn: () => unitService.getById(unitId),
+  });
+};
+
+export const useUpdateUnit = (unitId: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (payload: Partial<Unit>) => unitService.update(unitId, payload),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["unit", unitId] });
+      toast.success("Unit updated successfully");
+    },
+    onError: (error: AxiosError<{ message: string }>) => {
+      toast.error(error?.response?.data?.message ?? "Something went wrong");
+    },
   });
 };
 

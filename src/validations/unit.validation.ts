@@ -47,7 +47,8 @@ export const createUnitSchema = z.object({
     .int("Must be a whole number")
     .min(0, "Cannot be negative")
     .max(5, "Cannot exceed 5 balconies")
-    .optional(),
+    .optional()
+    .default(0),
 
   monthly_rent: z
     .number()
@@ -59,7 +60,8 @@ export const createUnitSchema = z.object({
     .int("Must be a whole number")
     .min(1, "Must be at least 1 month")
     .max(6, "Cannot exceed 6 months")
-    .optional(),
+    .optional()
+    .default(2),
 
   has_parking: z.boolean().optional().default(false),
   has_ac: z.boolean().optional().default(false),
@@ -69,7 +71,7 @@ export const createUnitSchema = z.object({
   has_water_supply: z.boolean().optional().default(true),
   is_pet_friendly: z.boolean().optional().default(false),
 
-  available_from: z
+  available_from: z.coerce
     .date()
     .min(new Date(), "Available date cannot be in the past")
     .optional(),
