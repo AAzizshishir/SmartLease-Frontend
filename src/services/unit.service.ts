@@ -14,7 +14,9 @@ export const unitService = {
   },
 
   create: async (propertyId: string, payload: CreateUnitInput) => {
-    const { data } = await api.post(`/properties/${propertyId}/units`, payload);
+    const { data } = await api.post(`/unit/${propertyId}`, payload, {
+      headers: { "Content-Type": "application/json" },
+    });
     return data;
   },
 

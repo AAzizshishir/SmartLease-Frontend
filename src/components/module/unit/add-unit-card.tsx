@@ -4,7 +4,7 @@
 // import { useState } from "react";
 import { useForm } from "@tanstack/react-form";
 import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
+import { ArrowLeft, CalendarIcon } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -29,6 +29,7 @@ import {
   CreateUnitInput,
 } from "@/validations/unit.validation";
 import { Label } from "@/components/ui/label";
+import { useRouter } from "next/navigation";
 
 interface Props {
   propertyId: string;
@@ -46,12 +47,13 @@ const AMENITIES = [
 
 const AddUnitCard = ({ propertyId }: Props) => {
   const { mutate, isPending } = useCreateUnit(propertyId);
+  const router = useRouter();
 
   const form = useForm({
     defaultValues: {
       unit_number: "",
       floor: 0,
-      type: "one_bed",
+      type: "studio",
       furnishing_status: "unfurnished",
       area_sqft: undefined,
       bedrooms: 1,
@@ -68,11 +70,10 @@ const AddUnitCard = ({ propertyId }: Props) => {
       is_pet_friendly: false,
       available_from: undefined,
     } as CreateUnitInput,
+    // validators: {
+    //   onSubmit: createUnitSchema,
+    // },
     onSubmit: async ({ value }) => {
-      const validationResult = createUnitSchema.safeParse(value);
-      if (!validationResult.success) {
-        throw new Error("Validation failed");
-      }
       mutate(value, {
         onSuccess: () => form.reset(),
       });
@@ -80,329 +81,341 @@ const AddUnitCard = ({ propertyId }: Props) => {
   });
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-base">Add new unit</CardTitle>
-      </CardHeader>
+    <div>
+      {/* Back button */}
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={() => router.back()}
+        className="gap-1 text-muted-foreground mb-2"
+      >
+        <ArrowLeft className="h-4 w-4" />
+        Back
+      </Button>
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">Add new unit</CardTitle>
+        </CardHeader>
 
-      <CardContent>
-        <form
-          id="add-unit-form"
-          onSubmit={(e) => {
-            e.preventDefault();
-            form.handleSubmit();
-          }}
-        >
-          <FieldGroup>
-            {/* Unit number + Floor */}
-            <div className="grid grid-cols-2 gap-3">
-              <form.Field name="unit_number">
-                {(field) => {
-                  const isInvalid =
-                    field.state.meta.isTouched && !field.state.meta.isValid;
-                  return (
-                    <Field data-invalid={isInvalid}>
-                      <Label>Unit number</Label>
-                      <Input
-                        placeholder="101"
+        <CardContent>
+          <form
+            id="add-unit-form"
+            onSubmit={(e) => {
+              e.preventDefault();
+              form.handleSubmit();
+            }}
+          >
+            <FieldGroup>
+              {/* Unit number + Floor */}
+              <div className="grid grid-cols-2 gap-3">
+                <form.Field name="unit_number">
+                  {(field) => {
+                    const isInvalid =
+                      field.state.meta.isTouched && !field.state.meta.isValid;
+                    return (
+                      <Field data-invalid={isInvalid}>
+                        <Label>Unit number</Label>
+                        <Input
+                          placeholder="101"
+                          value={field.state.value}
+                          onChange={(e) => field.handleChange(e.target.value)}
+                        />
+                        {isInvalid && (
+                          <FieldError errors={field.state.meta.errors} />
+                        )}
+                      </Field>
+                    );
+                  }}
+                </form.Field>
+
+                <form.Field name="floor">
+                  {(field) => {
+                    const isInvalid =
+                      field.state.meta.isTouched && !field.state.meta.isValid;
+                    return (
+                      <Field data-invalid={isInvalid}>
+                        <Label>Floor</Label>
+                        <Input
+                          type="number"
+                          min={0}
+                          placeholder="3"
+                          value={field.state.value}
+                          onChange={(e) =>
+                            field.handleChange(Number(e.target.value))
+                          }
+                        />
+                        {isInvalid && (
+                          <FieldError errors={field.state.meta.errors} />
+                        )}
+                      </Field>
+                    );
+                  }}
+                </form.Field>
+              </div>
+
+              {/* Type + Furnishing */}
+              <div className="grid grid-cols-2 gap-3">
+                <form.Field name="type">
+                  {(field) => (
+                    <Field>
+                      <Label>Type</Label>
+                      <select
                         value={field.state.value}
-                        onChange={(e) => field.handleChange(e.target.value)}
-                      />
-                      {isInvalid && (
-                        <FieldError errors={field.state.meta.errors} />
-                      )}
+                        onChange={(e) =>
+                          field.handleChange(
+                            e.target.value as
+                              | "studio"
+                              | "one_bed"
+                              | "two_bed"
+                              | "three_bed"
+                              | "four_bed"
+                              | "penthouse",
+                          )
+                        }
+                        className="border border-gray-300 rounded-md p-2 w-full text-sm"
+                      >
+                        <option value="studio">Studio</option>
+                        <option value="one_bed">1 Bed</option>
+                        <option value="two_bed">2 Bed</option>
+                        <option value="three_bed">3 Bed</option>
+                        <option value="four_bed">4 Bed</option>
+                        <option value="penthouse">Penthouse</option>
+                      </select>
                     </Field>
-                  );
-                }}
-              </form.Field>
+                  )}
+                </form.Field>
 
-              <form.Field name="floor">
-                {(field) => {
-                  const isInvalid =
-                    field.state.meta.isTouched && !field.state.meta.isValid;
-                  return (
-                    <Field data-invalid={isInvalid}>
-                      <Label>Floor</Label>
+                <form.Field name="furnishing_status">
+                  {(field) => (
+                    <Field>
+                      <Label>Furnishing</Label>
+                      <select
+                        value={field.state.value}
+                        onChange={(e) =>
+                          field.handleChange(
+                            e.target.value as
+                              | "unfurnished"
+                              | "semi_furnished"
+                              | "fully_furnished",
+                          )
+                        }
+                        className="border border-gray-300 rounded-md p-2 w-full text-sm"
+                      >
+                        <option value="unfurnished">Unfurnished</option>
+                        <option value="semi_furnished">Semi furnished</option>
+                        <option value="fully_furnished">Fully furnished</option>
+                      </select>
+                    </Field>
+                  )}
+                </form.Field>
+              </div>
+
+              {/* Bedrooms + Bathrooms + Balconies */}
+              <div className="grid grid-cols-3 gap-3">
+                <form.Field name="bedrooms">
+                  {(field) => {
+                    const isInvalid =
+                      field.state.meta.isTouched && !field.state.meta.isValid;
+                    return (
+                      <Field data-invalid={isInvalid}>
+                        <Label>Bedrooms</Label>
+                        <Input
+                          type="number"
+                          min={0}
+                          value={field.state.value}
+                          onChange={(e) =>
+                            field.handleChange(Number(e.target.value))
+                          }
+                        />
+                        {isInvalid && (
+                          <FieldError errors={field.state.meta.errors} />
+                        )}
+                      </Field>
+                    );
+                  }}
+                </form.Field>
+
+                <form.Field name="bathrooms">
+                  {(field) => {
+                    const isInvalid =
+                      field.state.meta.isTouched && !field.state.meta.isValid;
+                    return (
+                      <Field data-invalid={isInvalid}>
+                        <Label>Bathrooms</Label>
+                        <Input
+                          type="number"
+                          min={1}
+                          value={field.state.value}
+                          onChange={(e) =>
+                            field.handleChange(Number(e.target.value))
+                          }
+                        />
+                        {isInvalid && (
+                          <FieldError errors={field.state.meta.errors} />
+                        )}
+                      </Field>
+                    );
+                  }}
+                </form.Field>
+
+                <form.Field name="balconies">
+                  {(field) => (
+                    <Field>
+                      <Label>Balconies</Label>
                       <Input
                         type="number"
                         min={0}
-                        placeholder="3"
                         value={field.state.value}
                         onChange={(e) =>
                           field.handleChange(Number(e.target.value))
                         }
                       />
-                      {isInvalid && (
-                        <FieldError errors={field.state.meta.errors} />
-                      )}
                     </Field>
-                  );
-                }}
-              </form.Field>
-            </div>
+                  )}
+                </form.Field>
+              </div>
 
-            {/* Type + Furnishing */}
-            <div className="grid grid-cols-2 gap-3">
-              <form.Field name="type">
-                {(field) => (
-                  <Field>
-                    <Label>Type</Label>
-                    <select
-                      value={field.state.value}
-                      onChange={(e) =>
-                        field.handleChange(
-                          e.target.value as
-                            | "studio"
-                            | "one_bed"
-                            | "two_bed"
-                            | "three_bed"
-                            | "four_bed"
-                            | "penthouse",
-                        )
-                      }
-                      className="border border-gray-300 rounded-md p-2 w-full text-sm"
-                    >
-                      <option value="studio">Studio</option>
-                      <option value="one_bed">1 Bedroom</option>
-                      <option value="two_bed">2 Bedroom</option>
-                      <option value="three_bed">3 Bedroom</option>
-                      <option value="four_bed">4 Bedroom</option>
-                      <option value="penthouse">Penthouse</option>
-                    </select>
-                  </Field>
-                )}
-              </form.Field>
+              {/* Rent + Deposit months + Area */}
+              <div className="grid grid-cols-3 gap-3">
+                <form.Field name="monthly_rent">
+                  {(field) => {
+                    const isInvalid =
+                      field.state.meta.isTouched && !field.state.meta.isValid;
+                    return (
+                      <Field data-invalid={isInvalid}>
+                        <Label>Monthly rent (৳)</Label>
+                        <Input
+                          type="number"
+                          min={0}
+                          placeholder="18000"
+                          value={field.state.value}
+                          onChange={(e) =>
+                            field.handleChange(Number(e.target.value))
+                          }
+                        />
+                        {isInvalid && (
+                          <FieldError errors={field.state.meta.errors} />
+                        )}
+                      </Field>
+                    );
+                  }}
+                </form.Field>
 
-              <form.Field name="furnishing_status">
-                {(field) => (
-                  <Field>
-                    <Label>Furnishing</Label>
-                    <select
-                      value={field.state.value}
-                      onChange={(e) =>
-                        field.handleChange(
-                          e.target.value as
-                            | "unfurnished"
-                            | "semi_furnished"
-                            | "fully_furnished",
-                        )
-                      }
-                      className="border border-gray-300 rounded-md p-2 w-full text-sm"
-                    >
-                      <option value="unfurnished">Unfurnished</option>
-                      <option value="semi_furnished">Semi furnished</option>
-                      <option value="fully_furnished">Fully furnished</option>
-                    </select>
-                  </Field>
-                )}
-              </form.Field>
-            </div>
-
-            {/* Bedrooms + Bathrooms + Balconies */}
-            <div className="grid grid-cols-3 gap-3">
-              <form.Field name="bedrooms">
-                {(field) => {
-                  const isInvalid =
-                    field.state.meta.isTouched && !field.state.meta.isValid;
-                  return (
-                    <Field data-invalid={isInvalid}>
-                      <Label>Bedrooms</Label>
-                      <Input
-                        type="number"
-                        min={0}
-                        value={field.state.value}
-                        onChange={(e) =>
-                          field.handleChange(Number(e.target.value))
-                        }
-                      />
-                      {isInvalid && (
-                        <FieldError errors={field.state.meta.errors} />
-                      )}
-                    </Field>
-                  );
-                }}
-              </form.Field>
-
-              <form.Field name="bathrooms">
-                {(field) => {
-                  const isInvalid =
-                    field.state.meta.isTouched && !field.state.meta.isValid;
-                  return (
-                    <Field data-invalid={isInvalid}>
-                      <Label>Bathrooms</Label>
+                <form.Field name="security_deposit_months">
+                  {(field) => (
+                    <Field>
+                      <Label>Deposit (months)</Label>
                       <Input
                         type="number"
                         min={1}
+                        max={6}
                         value={field.state.value}
                         onChange={(e) =>
                           field.handleChange(Number(e.target.value))
                         }
                       />
-                      {isInvalid && (
-                        <FieldError errors={field.state.meta.errors} />
-                      )}
                     </Field>
-                  );
-                }}
-              </form.Field>
+                  )}
+                </form.Field>
 
-              <form.Field name="balconies">
-                {(field) => (
-                  <Field>
-                    <Label>Balconies</Label>
-                    <Input
-                      type="number"
-                      min={0}
-                      value={field.state.value}
-                      onChange={(e) =>
-                        field.handleChange(Number(e.target.value))
-                      }
-                    />
-                  </Field>
-                )}
-              </form.Field>
-            </div>
-
-            {/* Rent + Deposit months + Area */}
-            <div className="grid grid-cols-3 gap-3">
-              <form.Field name="monthly_rent">
-                {(field) => {
-                  const isInvalid =
-                    field.state.meta.isTouched && !field.state.meta.isValid;
-                  return (
-                    <Field data-invalid={isInvalid}>
-                      <Label>Monthly rent (৳)</Label>
+                <form.Field name="area_sqft">
+                  {(field) => (
+                    <Field>
+                      <Label>Area (sqft)</Label>
                       <Input
                         type="number"
                         min={0}
-                        placeholder="18000"
-                        value={field.state.value}
+                        placeholder="850"
+                        value={field.state.value ?? ""}
                         onChange={(e) =>
-                          field.handleChange(Number(e.target.value))
+                          field.handleChange(
+                            e.target.value ? Number(e.target.value) : undefined,
+                          )
                         }
                       />
-                      {isInvalid && (
-                        <FieldError errors={field.state.meta.errors} />
-                      )}
                     </Field>
-                  );
-                }}
-              </form.Field>
-
-              <form.Field name="security_deposit_months">
-                {(field) => (
-                  <Field>
-                    <Label>Deposit (months)</Label>
-                    <Input
-                      type="number"
-                      min={1}
-                      max={6}
-                      value={field.state.value}
-                      onChange={(e) =>
-                        field.handleChange(Number(e.target.value))
-                      }
-                    />
-                  </Field>
-                )}
-              </form.Field>
-
-              <form.Field name="area_sqft">
-                {(field) => (
-                  <Field>
-                    <Label>Area (sqft)</Label>
-                    <Input
-                      type="number"
-                      min={0}
-                      placeholder="850"
-                      value={field.state.value ?? ""}
-                      onChange={(e) =>
-                        field.handleChange(
-                          e.target.value ? Number(e.target.value) : undefined,
-                        )
-                      }
-                    />
-                  </Field>
-                )}
-              </form.Field>
-            </div>
-
-            {/* Available from — Date Picker */}
-            <form.Field name="available_from">
-              {(field) => (
-                <Field>
-                  <Label>Available from (optional)</Label>
-                  <Popover>
-                    <PopoverTrigger>
-                      <Button
-                        type="button"
-                        variant="outline"
-                        className={cn(
-                          "w-full justify-start text-left font-normal",
-                          !field.state.value && "text-muted-foreground",
-                        )}
-                      >
-                        <CalendarIcon className="mr-2 h-4 w-4" />
-                        {field.state.value
-                          ? format(field.state.value, "PPP")
-                          : "Pick a date"}
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0">
-                      <Calendar
-                        mode="single"
-                        selected={field.state.value}
-                        onSelect={(date) => field.handleChange(date)}
-                        disabled={(date) => date < new Date()}
-                        initialFocus
-                      />
-                    </PopoverContent>
-                  </Popover>
-                </Field>
-              )}
-            </form.Field>
-
-            {/* Amenities */}
-            <Field>
-              <Label>Amenities</Label>
-              <div className="grid grid-cols-2 gap-2 mt-1">
-                {AMENITIES.map((amenity) => (
-                  <form.Field key={amenity.name} name={amenity.name}>
-                    {(field) => (
-                      <div className="flex items-center gap-2">
-                        <Checkbox
-                          id={amenity.name}
-                          checked={field.state.value as boolean}
-                          onCheckedChange={(checked) =>
-                            field.handleChange(Boolean(checked))
-                          }
-                        />
-                        <label
-                          htmlFor={amenity.name}
-                          className="text-sm cursor-pointer"
-                        >
-                          {amenity.label}
-                        </label>
-                      </div>
-                    )}
-                  </form.Field>
-                ))}
+                  )}
+                </form.Field>
               </div>
-            </Field>
-          </FieldGroup>
-        </form>
-      </CardContent>
 
-      <CardFooter>
-        <Button
-          form="add-unit-form"
-          type="submit"
-          className="w-full"
-          disabled={isPending}
-        >
-          {isPending ? "Adding..." : "Add unit"}
-        </Button>
-      </CardFooter>
-    </Card>
+              {/* Available from — Date Picker */}
+              <form.Field name="available_from">
+                {(field) => (
+                  <Field>
+                    <Label>Available from (optional)</Label>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          className={cn(
+                            "w-full justify-start text-left font-normal",
+                            !field.state.value && "text-muted-foreground",
+                          )}
+                        >
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          {field.state.value
+                            ? format(field.state.value, "PPP")
+                            : "Pick a date"}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0">
+                        <Calendar
+                          mode="single"
+                          selected={field.state.value}
+                          onSelect={(date) => field.handleChange(date)}
+                          disabled={(date) => date < new Date()}
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                  </Field>
+                )}
+              </form.Field>
+
+              {/* Amenities */}
+              <Field>
+                <Label>Amenities</Label>
+                <div className="grid grid-cols-2 gap-2 mt-1">
+                  {AMENITIES.map((amenity) => (
+                    <form.Field key={amenity.name} name={amenity.name}>
+                      {(field) => (
+                        <div className="flex items-center gap-2">
+                          <Checkbox
+                            id={amenity.name}
+                            checked={field.state.value as boolean}
+                            onCheckedChange={(checked) =>
+                              field.handleChange(Boolean(checked))
+                            }
+                          />
+                          <label
+                            htmlFor={amenity.name}
+                            className="text-sm cursor-pointer"
+                          >
+                            {amenity.label}
+                          </label>
+                        </div>
+                      )}
+                    </form.Field>
+                  ))}
+                </div>
+              </Field>
+            </FieldGroup>
+          </form>
+        </CardContent>
+
+        <CardFooter>
+          <Button
+            form="add-unit-form"
+            type="submit"
+            className="w-full disabled:cursor-not-allowed"
+            disabled={isPending}
+          >
+            {isPending ? "Adding..." : "Add unit"}
+          </Button>
+        </CardFooter>
+      </Card>
+    </div>
   );
 };
 
