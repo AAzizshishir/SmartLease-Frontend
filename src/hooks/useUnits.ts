@@ -20,6 +20,13 @@ export const useCreateUnit = (propertyId: string) => {
   });
 };
 
+export const useGetAllUnits = () => {
+  return useQuery({
+    queryKey: ["unit"],
+    queryFn: () => unitService.getAll(),
+  });
+};
+
 export const useGetUnitDetails = (unitId: string) => {
   return useQuery({
     queryKey: ["unit", unitId],

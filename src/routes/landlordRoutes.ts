@@ -23,6 +23,10 @@ export const landlordRoutes: Route[] = [
 export const landlordNavRoutes: NavRoute[] = [
   { title: "Home", url: "/" },
   {
+    title: "Units",
+    url: "/unit",
+  },
+  {
     title: "About",
     url: "/about",
   },

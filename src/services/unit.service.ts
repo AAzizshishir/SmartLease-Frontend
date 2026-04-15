@@ -4,7 +4,7 @@ import { CreateUnitInput } from "@/validations/unit.validation";
 
 export const unitService = {
   getAll: async (params?: Record<string, unknown>) => {
-    const { data } = await api.get("/units", { params });
+    const { data } = await api.get("/unit", { params });
     return data;
   },
 

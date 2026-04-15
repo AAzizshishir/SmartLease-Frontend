@@ -2,7 +2,7 @@ import { NavRoute, Route } from "@/types/routes.type";
 
 export const tenantRoutes: Route[] = [
   {
-    title: "Admin Dashboard",
+    title: "Tenant Dashboard",
     items: [
       {
         title: "Home",
@@ -14,6 +14,10 @@ export const tenantRoutes: Route[] = [
 
 export const tenantNavRoutes: NavRoute[] = [
   { title: "Home", url: "/" },
+  {
+    title: "Units",
+    url: "/unit",
+  },
   {
     title: "About",
     url: "/about",

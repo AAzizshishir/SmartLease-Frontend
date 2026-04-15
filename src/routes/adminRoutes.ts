@@ -19,6 +19,10 @@ export const adminRoutes: Route[] = [
 export const adminNavRoutes: NavRoute[] = [
   { title: "Home", url: "/" },
   {
+    title: "Units",
+    url: "/unit",
+  },
+  {
     title: "About",
     url: "/about",
   },
