@@ -80,9 +80,7 @@ const PropertyUnitsCard = ({
                       size="sm"
                       // variant="ghost"
                       onClick={() =>
-                        router.push(
-                          `/properties/${propertyId}/units/${unit.id}`,
-                        )
+                        router.push(`/property/${propertyId}/unit/${unit.id}`)
                       }
                     >
                       View

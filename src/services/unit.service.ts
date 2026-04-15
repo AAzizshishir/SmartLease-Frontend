@@ -8,8 +8,8 @@ export const unitService = {
     return data;
   },
 
-  getById: async (id: string) => {
-    const { data } = await api.get(`/properties/${id}`);
+  getById: async (unitId: string) => {
+    const { data } = await api.get(`/unit/${unitId}`);
     return data;
   },
 

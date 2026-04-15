@@ -1,6 +1,7 @@
 import { unitService } from "@/services/unit.service";
 import { CreateUnitInput } from "@/validations/unit.validation";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import { toast } from "sonner";
 
 export const useCreateUnit = (propertyId: string) => {
@@ -12,8 +13,15 @@ export const useCreateUnit = (propertyId: string) => {
       queryClient.invalidateQueries({ queryKey: ["units", propertyId] });
       toast.success("Unit added successfully");
     },
-    onError: (error) => {
-      toast.error(error?.message ?? "Something went wrong");
+    onError: (error: AxiosError<{ message: string }>) => {
+      toast.error(error?.response?.data?.message ?? "Something went wrong");
     },
+  });
+};
+
+export const useGetUnitDetails = (unitId: string) => {
+  return useQuery({
+    queryKey: ["unit", unitId],
+    queryFn: () => unitService.getById(unitId),
   });
 };

@@ -23,17 +23,9 @@ const PropertyDetailsCard = () => {
   const id = params.id as string;
   const { data, isLoading } = usePropertyDetails(id);
 
-  if (isLoading) {
-    return (
-      <div className="space-y-4 p-6">
-        <div className="h-8 w-48 bg-muted animate-pulse rounded" />
-        <div className="h-48 bg-muted animate-pulse rounded-lg" />
-        <div className="h-32 bg-muted animate-pulse rounded-lg" />
-      </div>
-    );
-  }
-
   const property = data?.data;
+
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <div className="p-6 space-y-6 max-w-4xl mx-auto">
