@@ -14,6 +14,9 @@ import { AppSession } from "@/types/session.type";
 import { ArrowLeft } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import UnitImageCard from "./unit-image-card";
+import LandlordActions from "@/features/landlord/landlord-actions";
+import TenantActions from "@/features/tenant/tenant-actions";
+import Link from "next/link";
 
 const UnitDetailsCard = () => {
   const params = useParams();
@@ -95,17 +98,17 @@ const UnitDetailsCard = () => {
             </small>
           </p>
         </CardContent>
-        {role === "LANDLORD" && (
-          <CardFooter className="flex justify-end space-x-2">
-            <Button
-              variant="outline"
-              onClick={() => router.push(`/edit-unit/${unitId}`)}
-            >
-              Edit Unit
+        <CardFooter>
+          {role === "LANDLORD" ? (
+            <LandlordActions unitId={unit.id} />
+          ) : role === "TENANT" ? (
+            <TenantActions />
+          ) : (
+            <Button>
+              <Link href={"/login"}>Please Login for apply</Link>
             </Button>
-            <Button variant="destructive">Delete Unit</Button>
-          </CardFooter>
-        )}
+          )}
+        </CardFooter>
       </Card>
     </div>
   );

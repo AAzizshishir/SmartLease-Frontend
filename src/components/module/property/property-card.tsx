@@ -13,11 +13,13 @@ const PropertyCard = () => {
   const property = data?.data?.data;
   console.log(property);
 
+  if (!property) return <div>No properties</div>;
+
   if (isLoading) return <div>Loading...</div>;
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {property.map((property: Property) => (
+      {property?.map((property: Property) => (
         <div
           key={property.id}
           className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition"
