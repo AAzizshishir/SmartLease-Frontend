@@ -1,5 +1,6 @@
 import { propertyService } from "@/services/property.service";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import { toast } from "sonner";
 
 // Get All
@@ -33,8 +34,8 @@ export const useCreateProperty = () => {
       queryClient.invalidateQueries({ queryKey: ["properties"] });
       toast.success("Property created successfully");
     },
-    onError: (error) => {
-      toast.error(error?.message ?? "Something went wrong");
+    onError: (error: AxiosError<{ message: string }>) => {
+      toast.error(error?.response?.data?.message ?? "Something went wrong");
     },
   });
 };
@@ -47,8 +48,8 @@ export const useUploadPropertyImages = (propertyId: string) => {
     onSuccess: () => {
       toast.success("Image added successfully");
     },
-    onError: (error) => {
-      toast.error(error?.message ?? "Something went wrong");
+    onError: (error: AxiosError<{ message: string }>) => {
+      toast.error(error?.response?.data?.message ?? "Something went wrong");
     },
   });
 };
@@ -63,8 +64,8 @@ export const useDeletePropertyImage = (propertyId: string) => {
       queryClient.invalidateQueries({ queryKey: ["properties", propertyId] });
       toast.success("Image deleted");
     },
-    onError: (error) => {
-      toast.error(error?.message ?? "Something went wrong");
+    onError: (error: AxiosError<{ message: string }>) => {
+      toast.error(error?.response?.data?.message ?? "Something went wrong");
     },
   });
 };

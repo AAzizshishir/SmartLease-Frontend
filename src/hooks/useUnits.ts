@@ -25,3 +25,35 @@ export const useGetUnitDetails = (unitId: string) => {
     queryFn: () => unitService.getById(unitId),
   });
 };
+
+// Image
+
+export const useUploadUnitImages = (unitId: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (images: FormData) => unitService.addImage(unitId, images),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["units", unitId] });
+      toast.success("Image added successfully");
+    },
+    onError: (error: AxiosError<{ message: string }>) => {
+      toast.error(error?.response?.data?.message ?? "Something went wrong");
+    },
+  });
+};
+
+export const useDeleteUnitImage = (unitId: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (imageId: string) => unitService.deleteImage(unitId, imageId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["units", unitId] });
+      toast.success("Image deleted");
+    },
+    onError: (error: AxiosError<{ message: string }>) => {
+      toast.error(error?.response?.data?.message ?? "Something went wrong");
+    },
+  });
+};

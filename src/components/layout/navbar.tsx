@@ -12,18 +12,6 @@ import { landlordNavRoutes } from "@/routes/landlordRoutes";
 import { tenantNavRoutes } from "@/routes/tenantRoutes";
 import { publicNavRoutes } from "@/routes/publicRoutes";
 
-interface NavItem {
-  title: string;
-  url: string;
-}
-
-const navItems: NavItem[] = [
-  { title: "Home", url: "/" },
-  { title: "About", url: "/about" },
-  { title: "Services", url: "/services" },
-  { title: "Contact", url: "/contact" },
-];
-
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 

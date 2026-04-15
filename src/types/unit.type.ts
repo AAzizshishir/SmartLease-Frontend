@@ -5,6 +5,13 @@ export type FurnishingStatus =
   | "unfurnished";
 export type UnitType = "apartment" | "penthouse" | "studio";
 
+export interface Images {
+  id: string;
+  unit_id: string;
+  url: string;
+  is_primary: boolean;
+}
+
 export interface Unit {
   id: string;
   property_id: string;
@@ -24,6 +31,8 @@ export interface Unit {
   security_deposit_months: number;
 
   furnishing_status: FurnishingStatus;
+
+  images: Images[];
 
   has_ac: boolean;
   has_gas: boolean;

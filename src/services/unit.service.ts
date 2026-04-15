@@ -20,15 +20,13 @@ export const unitService = {
     return data;
   },
 
-  addImage: async (propertyId: string, images: FormData) => {
-    const { data } = await api.post(`/properties/${propertyId}/images`, images);
+  addImage: async (unitId: string, images: FormData) => {
+    const { data } = await api.post(`/unit/${unitId}/images`, images);
     return data;
   },
 
-  deleteImage: async (propertyId: string, imageId: string) => {
-    const { data } = await api.delete(
-      `/properties/${propertyId}/images/${imageId}`,
-    );
+  deleteImage: async (unitId: string, imageId: string) => {
+    const { data } = await api.delete(`/ubit/${unitId}/images/${imageId}`);
     return data;
   },
 

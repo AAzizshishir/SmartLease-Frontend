@@ -13,6 +13,7 @@ import { useSession } from "@/lib/auth-client";
 import { AppSession } from "@/types/session.type";
 import { ArrowLeft } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
+import UnitImageCard from "./unit-image-card";
 
 const UnitDetailsCard = () => {
   const params = useParams();
@@ -41,6 +42,9 @@ const UnitDetailsCard = () => {
         <ArrowLeft className="h-4 w-4" />
         Back
       </Button>
+      {/* Images Section */}
+      <UnitImageCard unitId={id} unit={unit} />
+
       <Card className="w-full max-w-lg">
         <CardHeader>
           <CardTitle>
