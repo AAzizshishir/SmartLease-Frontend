@@ -9,7 +9,6 @@ const LeaseApplyPage = async ({
   return (
     <div>
       <LeaseApplicationCard unitId={unit_id} />
-      Hello
     </div>
   );
 };

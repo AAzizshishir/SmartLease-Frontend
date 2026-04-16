@@ -24,11 +24,14 @@ const UnitDetailsCard = () => {
   const { data } = useGetUnitDetails(unitId);
   const unit = data?.data;
 
-  console.log(unitId, "from unit details page");
+  console.log(unit, "from unit details card");
+  console.log(unitId);
 
   const { data: sessionData } = useSession();
   const session = sessionData as AppSession | null;
   const role = session?.user.role;
+
+  if (!unit) return <h1>Faild to load data</h1>;
 
   return (
     <div>
@@ -48,58 +51,59 @@ const UnitDetailsCard = () => {
       <Card className="w-full max-w-lg mx-auto">
         <CardHeader>
           <CardTitle>
-            Unit {unit.unit_number} - {unit.type}
+            Unit {unit?.unit_number} - {unit?.type}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-2">
           <p>
-            <strong>Floor:</strong> {unit.floor}
+            <strong>Floor:</strong> {unit?.floor}
           </p>
           <p>
-            <strong>Bedrooms:</strong> {unit.bedrooms}
+            <strong>Bedrooms:</strong> {unit?.bedrooms}
           </p>
           <p>
-            <strong>Bathrooms:</strong> {unit.bathrooms}
+            <strong>Bathrooms:</strong> {unit?.bathrooms}
           </p>
           <p>
-            <strong>Balconies:</strong> {unit.balconies}
+            <strong>Balconies:</strong> {unit?.balconies}
           </p>
           <p>
-            <strong>Area:</strong> {unit.area_sqft} sqft
+            <strong>Area:</strong> {unit?.area_sqft} sqft
           </p>
           <p>
-            <strong>Furnishing:</strong> {unit.furnishing_status}
+            <strong>Furnishing:</strong> {unit?.furnishing_status}
           </p>
           <p>
-            <strong>Rent:</strong> {unit.monthly_rent} BDT
+            <strong>Rent:</strong> {unit?.monthly_rent} BDT
           </p>
           <p>
-            <strong>Deposit:</strong> {unit.security_deposit_months} months
+            <strong>Deposit:</strong> {unit?.security_deposit_months} months
           </p>
           <p>
-            <strong>Status:</strong> {unit.status}
+            <strong>Status:</strong> {unit?.status}
           </p>
           <p>
-            <strong>Pet Friendly:</strong> {unit.is_pet_friendly ? "Yes" : "No"}
+            <strong>Pet Friendly:</strong>{" "}
+            {unit?.is_pet_friendly ? "Yes" : "No"}
           </p>
           <p>
             <strong>Amenities:</strong>
-            {unit.has_ac && " AC,"}
-            {unit.has_gas && " Gas,"}
-            {unit.has_generator && " Generator,"}
-            {unit.has_lift && " Lift,"}
-            {unit.has_parking && " Parking,"}
-            {unit.has_water_supply && " Water Supply"}
+            {unit?.has_ac && " AC,"}
+            {unit?.has_gas && " Gas,"}
+            {unit?.has_generator && " Generator,"}
+            {unit?.has_lift && " Lift,"}
+            {unit?.has_parking && " Parking,"}
+            {unit?.has_water_supply && " Water Supply"}
           </p>
           <p>
             <small>
-              Created at: {new Date(unit.created_at).toLocaleDateString()}
+              Created at: {new Date(unit?.created_at).toLocaleDateString()}
             </small>
           </p>
         </CardContent>
         <CardFooter>
           {role === "LANDLORD" ? (
-            <LandlordActions unitId={unit.id} />
+            <LandlordActions unitId={unit?.id} />
           ) : role === "TENANT" ? (
             <div>
               <Button>

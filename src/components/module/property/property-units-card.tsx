@@ -22,7 +22,6 @@ const PropertyUnitsCard = ({
   data: Property;
 }) => {
   const router = useRouter();
-  console.log(data, "from property units card");
 
   return (
     <Card>
@@ -61,18 +60,18 @@ const PropertyUnitsCard = ({
               {data?.units.map((unit: Unit) => (
                 <TableRow key={unit.id}>
                   <TableCell className="font-medium">
-                    {unit.unit_number}
+                    {unit?.unit_number}
                   </TableCell>
-                  <TableCell>{unit.floor}</TableCell>
+                  <TableCell>{unit?.floor}</TableCell>
                   <TableCell className="capitalize">
-                    {unit.type.replace("_", " ")}
+                    {unit?.type.replace("_", " ")}
                   </TableCell>
                   <TableCell>
-                    ৳ {Number(unit.monthly_rent).toLocaleString()}
+                    ৳ {Number(unit?.monthly_rent).toLocaleString()}
                   </TableCell>
                   <TableCell>
                     <Badge variant={"default"} className="capitalize text-xs">
-                      {unit.status}
+                      {unit?.status}
                     </Badge>
                   </TableCell>
                   <TableCell>
