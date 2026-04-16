@@ -13,4 +13,16 @@ export const leaseApplicationService = {
     const { data } = await api.get("/lease-application/landlord");
     return data;
   },
+
+  getApplicationDetails: async (id: string) => {
+    const { data } = await api.get(`/lease-application/${id}`);
+    return data;
+  },
+
+  approveApplication: async (id: string) => {
+    const { data } = await api.patch(
+      `/lease-application/landlord/${id}/approve`,
+    );
+    return data;
+  },
 };

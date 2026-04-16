@@ -18,8 +18,9 @@ const LeaseApplicationList = () => {
   const { data, isLoading } = useGetLandlordApplications();
   const applications = data?.data;
 
-  if (!applications) return <h2>No Application</h2>;
   if (isLoading) return <h2>Loading...</h2>;
+
+  if (!applications) return <h2>No Application</h2>;
 
   return (
     <div>
@@ -31,7 +32,7 @@ const LeaseApplicationList = () => {
             <TableHead>Property City</TableHead>
             <TableHead>Floor</TableHead>
             <TableHead>Unit Number</TableHead>
-            <TableHead>Tenant Name</TableHead>
+            <TableHead>Tenant Profession</TableHead>
             <TableHead>Tenant Income</TableHead>
             <TableHead>Details</TableHead>
           </TableRow>
@@ -43,7 +44,7 @@ const LeaseApplicationList = () => {
               <TableCell>{application.unit.property.city}</TableCell>
               <TableCell>{application.unit.floor}</TableCell>
               <TableCell>{application.unit.unit_number}</TableCell>
-              <TableCell>{application.tenant.name}</TableCell>
+              <TableCell>{application.profession}</TableCell>
               <TableCell>{application.monthly_income}</TableCell>
               <TableCell>
                 <Button>
