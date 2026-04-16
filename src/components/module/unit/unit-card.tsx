@@ -9,13 +9,11 @@ import Image from "next/image";
 import Link from "next/link";
 
 const UnitCard = () => {
-  const { data, isLoading } = useGetAllUnits();
+  const { data } = useGetAllUnits();
   const units = data?.data;
   const meta = data?.meta;
   console.log("units", units);
   console.log("meta", meta);
-
-  if (isLoading) return <div>Loading...</div>;
 
   return (
     <div>

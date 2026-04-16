@@ -1,10 +1,27 @@
 import UnitDetailsCard from "@/components/module/unit/unit-details-card";
+import { unitService } from "@/services/unit.service";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
 
-const UnitDetailsPage = () => {
+const UnitDetailsPage = async ({
+  params,
+}: {
+  params: Promise<{ unit_id: string }>;
+}) => {
+  const { unit_id } = await params;
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: ["unit", unit_id],
+    queryFn: () => unitService.getById(unit_id),
+  });
   return (
-    <div>
+    <HydrationBoundary state={dehydrate(queryClient)}>
       <UnitDetailsCard />
-    </div>
+    </HydrationBoundary>
   );
 };
 

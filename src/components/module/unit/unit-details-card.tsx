@@ -15,21 +15,20 @@ import { ArrowLeft } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import UnitImageCard from "./unit-image-card";
 import LandlordActions from "@/features/landlord/landlord-actions";
-import TenantActions from "@/features/tenant/tenant-actions";
 import Link from "next/link";
 
 const UnitDetailsCard = () => {
   const params = useParams();
   const router = useRouter();
   const unitId = params.unit_id as string;
-  const { data, isLoading } = useGetUnitDetails(unitId);
+  const { data } = useGetUnitDetails(unitId);
   const unit = data?.data;
+
+  console.log(unitId, "from unit details page");
 
   const { data: sessionData } = useSession();
   const session = sessionData as AppSession | null;
   const role = session?.user.role;
-
-  if (isLoading) return <div>Loading...</div>;
 
   return (
     <div>
@@ -46,7 +45,7 @@ const UnitDetailsCard = () => {
       {/* Images Section */}
       <UnitImageCard unitId={unitId} unit={unit} />
 
-      <Card className="w-full max-w-lg">
+      <Card className="w-full max-w-lg mx-auto">
         <CardHeader>
           <CardTitle>
             Unit {unit.unit_number} - {unit.type}
@@ -102,7 +101,11 @@ const UnitDetailsCard = () => {
           {role === "LANDLORD" ? (
             <LandlordActions unitId={unit.id} />
           ) : role === "TENANT" ? (
-            <TenantActions />
+            <div>
+              <Button>
+                <Link href={`/units/${unitId}/apply`}>Apply</Link>
+              </Button>
+            </div>
           ) : (
             <Button>
               <Link href={"/login"}>Please Login for apply</Link>

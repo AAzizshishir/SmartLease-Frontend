@@ -27,10 +27,10 @@ export const useGetAllUnits = () => {
   });
 };
 
-export const useGetUnitDetails = (unitId: string) => {
+export const useGetUnitDetails = (unit_id: string) => {
   return useQuery({
-    queryKey: ["unit", unitId],
-    queryFn: () => unitService.getById(unitId),
+    queryKey: ["unit", unit_id],
+    queryFn: () => unitService.getById(unit_id),
   });
 };
 
