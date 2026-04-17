@@ -37,6 +37,7 @@ export interface LeaseApplication {
   unit: {
     unit_number: string;
     floor: string;
+    monthly_rent: string;
     property: {
       id: string;
       name: string;

@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   useApproveApplication,
   useGetApplicationDetails,
@@ -24,7 +25,18 @@ const ApplicationDetailsCard = () => {
   );
   const { mutate, isPending } = useApproveApplication(application_id as string);
 
-  if (isLoading) return <h2>Loading...</h2>;
+  if (isLoading)
+    return (
+      <Card className="w-full max-w-xs">
+        <CardHeader>
+          <Skeleton className="h-4 w-2/3" />
+          <Skeleton className="h-4 w-1/2" />
+        </CardHeader>
+        <CardContent>
+          <Skeleton className="aspect-video w-full" />
+        </CardContent>
+      </Card>
+    );
 
   if (!data) return <h2>No application found</h2>;
   const {
@@ -67,6 +79,10 @@ const ApplicationDetailsCard = () => {
 
         <p>
           <strong>Unit:</strong> {unit.unit_number}
+        </p>
+
+        <p>
+          <strong>Monthly Rent:</strong> {unit.monthly_rent} BDT
         </p>
 
         <p>
