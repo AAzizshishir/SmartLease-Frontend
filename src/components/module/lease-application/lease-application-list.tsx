@@ -1,7 +1,7 @@
 "use client";
 
+import { ListSkeletonGrid } from "@/components/shared/list-skeleton-grid";
 import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,
   TableBody,
@@ -19,16 +19,7 @@ const LeaseApplicationList = () => {
   const { data, isLoading } = useGetLandlordApplications();
   const applications = data?.data;
 
-  if (isLoading)
-    return (
-      <div className="flex items-center gap-4">
-        <Skeleton className="h-12 w-full rounded-full" />
-        <div className="space-y-2">
-          <Skeleton className="h-4 w-full" />
-          <Skeleton className="h-4 w-full" />
-        </div>
-      </div>
-    );
+  if (isLoading) return <ListSkeletonGrid count={10} />;
 
   if (!applications) return <h2>No Application</h2>;
 
@@ -40,11 +31,11 @@ const LeaseApplicationList = () => {
           <TableRow>
             <TableHead>Property Name</TableHead>
             <TableHead>Property City</TableHead>
-            <TableHead>Floor</TableHead>
             <TableHead>Unit Number</TableHead>
             <TableHead>Tenant Name</TableHead>
             <TableHead>Tenant Profession</TableHead>
             <TableHead>Tenant Income</TableHead>
+            <TableHead>Status</TableHead>
             <TableHead>Details</TableHead>
           </TableRow>
         </TableHeader>
@@ -53,11 +44,11 @@ const LeaseApplicationList = () => {
             <TableRow key={application.id}>
               <TableCell>{application.unit.property.name}</TableCell>
               <TableCell>{application.unit.property.city}</TableCell>
-              <TableCell>{application.unit.floor}</TableCell>
               <TableCell>{application.unit.unit_number}</TableCell>
               <TableCell>{application.tenant.name}</TableCell>
               <TableCell>{application.profession}</TableCell>
               <TableCell>{application.monthly_income}</TableCell>
+              <TableCell>{application.status}</TableCell>
               <TableCell>
                 <Button>
                   <Link href={`/lease-application/${application.id}`}>

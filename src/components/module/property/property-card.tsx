@@ -6,8 +6,7 @@ import { Property } from "@/types/property.type";
 import Link from "next/link";
 import { ImageIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
+import { CardSkeletonGrid } from "@/components/shared/card-skeleton-grid";
 
 const PropertyCard = () => {
   const { data, isLoading } = useGetMyProperties();
@@ -15,18 +14,7 @@ const PropertyCard = () => {
   const property = data?.data?.data;
   console.log(property);
 
-  if (isLoading)
-    return (
-      <Card className="w-full max-w-xs">
-        <CardHeader>
-          <Skeleton className="h-4 w-2/3" />
-          <Skeleton className="h-4 w-1/2" />
-        </CardHeader>
-        <CardContent>
-          <Skeleton className="aspect-video w-full" />
-        </CardContent>
-      </Card>
-    );
+  if (isLoading) return <CardSkeletonGrid count={6} />;
 
   if (!property) return <div>No properties</div>;
 

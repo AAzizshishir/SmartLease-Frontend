@@ -16,22 +16,21 @@ import { useParams, useRouter } from "next/navigation";
 import UnitImageCard from "./unit-image-card";
 import LandlordActions from "@/features/landlord/landlord-actions";
 import Link from "next/link";
+import { Skeleton } from "@/components/ui/skeleton";
+import { CardSkeletonGrid } from "@/components/shared/card-skeleton-grid";
 
 const UnitDetailsCard = () => {
   const params = useParams();
   const router = useRouter();
   const unitId = params.unit_id as string;
-  const { data } = useGetUnitDetails(unitId);
+  const { data, isLoading } = useGetUnitDetails(unitId);
   const unit = data?.data;
-
-  console.log(unit, "from unit details card");
-  console.log(unitId);
 
   const { data: sessionData } = useSession();
   const session = sessionData as AppSession | null;
   const role = session?.user.role;
 
-  if (!unit) return <h1>Faild to load data</h1>;
+  if (isLoading) return <CardSkeletonGrid count={1} />;
 
   return (
     <div>

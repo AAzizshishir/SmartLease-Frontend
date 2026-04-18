@@ -1,5 +1,6 @@
 "use client";
 
+import { CardSkeletonGrid } from "@/components/shared/card-skeleton-grid";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -25,22 +26,11 @@ const ApplicationDetailsCard = () => {
   );
   const { mutate, isPending } = useApproveApplication(application_id as string);
 
-  if (isLoading)
-    return (
-      <Card className="w-full max-w-xs">
-        <CardHeader>
-          <Skeleton className="h-4 w-2/3" />
-          <Skeleton className="h-4 w-1/2" />
-        </CardHeader>
-        <CardContent>
-          <Skeleton className="aspect-video w-full" />
-        </CardContent>
-      </Card>
-    );
+  if (isLoading) return <CardSkeletonGrid count={6} />;
 
   if (!data) return <h2>No application found</h2>;
   const {
-    // id,
+    id,
     // unit_id,
     // lease_id,
     unit,
@@ -169,6 +159,11 @@ const ApplicationDetailsCard = () => {
           </Button>
           <Button className="bg-red-500">Reject</Button>
         </CardFooter>
+      )}
+      {status === "approved" && (
+        <Button>
+          <Link href={`/lease`}>Create Lease</Link>
+        </Button>
       )}
     </Card>
   );

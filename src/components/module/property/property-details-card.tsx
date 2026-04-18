@@ -16,7 +16,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import PropertyUnitsCard from "./property-units-card";
-import { Skeleton } from "@/components/ui/skeleton";
+import { CardSkeletonGrid } from "@/components/shared/card-skeleton-grid";
 
 const PropertyDetailsCard = () => {
   const params = useParams();
@@ -26,18 +26,7 @@ const PropertyDetailsCard = () => {
 
   const property = data?.data;
 
-  if (isLoading)
-    return (
-      <Card className="w-full max-w-xs">
-        <CardHeader>
-          <Skeleton className="h-4 w-2/3" />
-          <Skeleton className="h-4 w-1/2" />
-        </CardHeader>
-        <CardContent>
-          <Skeleton className="aspect-video w-full" />
-        </CardContent>
-      </Card>
-    );
+  if (isLoading) return <CardSkeletonGrid count={1} />;
 
   return (
     <div className="p-6 space-y-6 max-w-4xl mx-auto">
