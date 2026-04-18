@@ -4,14 +4,15 @@ import { api } from "@/lib/axios/http-client";
 import { CreateLeaseInput } from "@/validations/lease.validation";
 
 export const leaseService = {
-  // getAll: async (params?: Record<string, unknown>) => {
-  //   const { data } = await api.get("/unit", { params });
-  //   return data;
-  // },
-  // getById: async (unitId: string) => {
-  //   const { data } = await api.get(`/unit/${unitId}`);
-  //   return data;
-  // },
+  getAll: async (params?: Record<string, unknown>) => {
+    const { data } = await api.get("/lease", { params });
+    return data;
+  },
+  getById: async (lease_id: string) => {
+    const { data } = await api.get(`/lease/${lease_id}`);
+    return data;
+  },
+
   create: async (application_id: string, payload: CreateLeaseInput) => {
     const { data } = await api.post(`/lease/${application_id}`, payload, {
       headers: { "Content-Type": "application/json" },

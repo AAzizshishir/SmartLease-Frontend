@@ -162,7 +162,7 @@ const ApplicationDetailsCard = () => {
       )}
       {status === "approved" && (
         <Button>
-          <Link href={`/lease/${id}`}>Create Lease</Link>
+          <Link href={`/create-lease/${id}`}>Create Lease</Link>
         </Button>
       )}
     </Card>

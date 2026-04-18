@@ -1,11 +1,11 @@
-import LeaseCreateForm from "@/components/module/lease/lease-create-form";
+import LeaseDetailsCard from "@/components/module/lease/lease-details-card";
 
-const LeasePage = () => {
+const LeaseDetailsPage = () => {
   return (
     <div>
-      <LeaseCreateForm />
+      <LeaseDetailsCard />
     </div>
   );
 };
 
-export default LeasePage;
+export default LeaseDetailsPage;

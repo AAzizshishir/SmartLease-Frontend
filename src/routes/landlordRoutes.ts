@@ -20,6 +20,10 @@ export const landlordRoutes: Route[] = [
         title: "My Application",
         url: "/lease-application",
       },
+      {
+        title: "All Lease",
+        url: "/lease",
+      },
     ],
   },
 ];

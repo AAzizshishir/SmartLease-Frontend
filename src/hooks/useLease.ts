@@ -1,6 +1,6 @@
 import { leaseService } from "@/services/lease.service";
 import { CreateLeaseInput } from "@/validations/lease.validation";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { toast } from "sonner";
 
@@ -18,5 +18,21 @@ export const useCreateLease = (application_id: string) => {
     onError: (error: AxiosError<{ message: string }>) => {
       toast.error(error?.response?.data?.message ?? "Something went wrong");
     },
+  });
+};
+
+// Get All
+export const useGetLeases = (params?: Record<string, unknown>) => {
+  return useQuery({
+    queryKey: ["leases", params],
+    queryFn: () => leaseService.getAll(params),
+  });
+};
+
+// Get Details
+export const useGetLeaseDetails = (lease_id: string) => {
+  return useQuery({
+    queryKey: ["lease", lease_id],
+    queryFn: () => leaseService.getById(lease_id),
   });
 };
