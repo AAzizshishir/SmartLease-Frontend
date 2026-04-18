@@ -20,9 +20,11 @@ export const createUnitSchema = z.object({
     "penthouse",
   ]),
 
-  furnishing_status: z
-    .enum(["unfurnished", "semi_furnished", "fully_furnished"])
-    .default("unfurnished"),
+  furnishing_status: z.enum([
+    "unfurnished",
+    "semi_furnished",
+    "fully_furnished",
+  ]),
 
   area_sqft: z
     .number()
@@ -47,8 +49,7 @@ export const createUnitSchema = z.object({
     .int("Must be a whole number")
     .min(0, "Cannot be negative")
     .max(5, "Cannot exceed 5 balconies")
-    .optional()
-    .default(0),
+    .optional(),
 
   monthly_rent: z
     .number()
@@ -60,16 +61,15 @@ export const createUnitSchema = z.object({
     .int("Must be a whole number")
     .min(1, "Must be at least 1 month")
     .max(6, "Cannot exceed 6 months")
-    .optional()
-    .default(2),
+    .optional(),
 
-  has_parking: z.boolean().optional().default(false),
-  has_ac: z.boolean().optional().default(false),
-  has_lift: z.boolean().optional().default(false),
-  has_gas: z.boolean().optional().default(false),
-  has_generator: z.boolean().optional().default(false),
-  has_water_supply: z.boolean().optional().default(true),
-  is_pet_friendly: z.boolean().optional().default(false),
+  has_parking: z.boolean().optional(),
+  has_ac: z.boolean().optional(),
+  has_lift: z.boolean().optional(),
+  has_gas: z.boolean().optional(),
+  has_generator: z.boolean().optional(),
+  has_water_supply: z.boolean().optional(),
+  is_pet_friendly: z.boolean().optional(),
 
   available_from: z.coerce
     .date()

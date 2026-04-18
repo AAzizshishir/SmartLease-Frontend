@@ -95,7 +95,6 @@ const LeaseApplicationCard = ({ unitId }: { unitId: string }) => {
                           field.handleChange(date || new Date())
                         }
                         disabled={(date) => date < new Date()}
-                        initialFocus
                       />
                     </PopoverContent>
                   </Popover>
@@ -302,7 +301,7 @@ const LeaseApplicationCard = ({ unitId }: { unitId: string }) => {
         <Button
           form="add-lease-application-form"
           type="submit"
-          className="w-full disabled:cursor-not-allowed"
+          className="w-full"
           disabled={isPending}
         >
           {isPending ? "Applying..." : "Apply For Lease"}

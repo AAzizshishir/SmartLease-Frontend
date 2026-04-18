@@ -30,6 +30,7 @@ export interface LeaseApplication {
   unit_id: string;
 
   tenant: {
+    id: string;
     name: string;
     email: string;
   };
@@ -40,6 +41,7 @@ export interface LeaseApplication {
     monthly_rent: string;
     property: {
       id: string;
+      landlord_id: string;
       name: string;
       city: string;
     };

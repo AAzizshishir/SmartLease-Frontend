@@ -26,7 +26,7 @@ const ApplicationDetailsCard = () => {
   );
   const { mutate, isPending } = useApproveApplication(application_id as string);
 
-  if (isLoading) return <CardSkeletonGrid count={6} />;
+  if (isLoading) return <CardSkeletonGrid count={1} />;
 
   if (!data) return <h2>No application found</h2>;
   const {
@@ -162,7 +162,7 @@ const ApplicationDetailsCard = () => {
       )}
       {status === "approved" && (
         <Button>
-          <Link href={`/lease`}>Create Lease</Link>
+          <Link href={`/lease/${id}`}>Create Lease</Link>
         </Button>
       )}
     </Card>
