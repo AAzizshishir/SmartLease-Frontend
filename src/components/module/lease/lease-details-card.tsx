@@ -6,15 +6,11 @@ import {
   CardTitle,
   CardDescription,
   CardContent,
-  CardFooter,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Lease } from "@/types/lease.type";
 import { useGetLeaseDetails } from "@/hooks/useLease";
 import { useParams } from "next/navigation";
 import { CardSkeletonGrid } from "@/components/shared/card-skeleton-grid";
-import { useSession } from "@/lib/auth-client";
-import { AppSession } from "@/types/session.type";
 
 interface LeaseDetailsProps {
   lease: Lease;
@@ -24,13 +20,9 @@ const LeaseDetailsCard = () => {
   const { id } = useParams();
   const { data, isLoading } = useGetLeaseDetails(id as string);
 
-  if (isLoading) return <CardSkeletonGrid count={6} />;
+  if (isLoading) return <CardSkeletonGrid count={1} />;
 
   const lease = data?.data;
-
-  const { data: sessionData } = useSession();
-  const session = sessionData as AppSession | null;
-  const role = session?.user.role;
 
   return (
     <Card className="w-full max-w-2xl mx-auto">
@@ -85,14 +77,6 @@ const LeaseDetailsCard = () => {
           </p>
         </div>
       </CardContent>
-
-      {role === "TENANT" && (
-        <CardFooter className="flex justify-end gap-2">
-          <Button variant="outline">Download Document</Button>
-          <Button className="bg-green-500 text-white">Approve</Button>
-          <Button className="bg-red-500 text-white">Reject</Button>
-        </CardFooter>
-      )}
     </Card>
   );
 };

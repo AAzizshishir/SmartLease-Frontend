@@ -36,3 +36,25 @@ export const useGetLeaseDetails = (lease_id: string) => {
     queryFn: () => leaseService.getById(lease_id),
   });
 };
+
+export const useGetTenantLease = () => {
+  return useQuery({
+    queryKey: ["lease"],
+    queryFn: leaseService.getTenantLease,
+  });
+};
+
+// Confirm Lease
+export const useConfirmLease = (id: string) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: () => leaseService.confirmLease(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["lease", id] });
+      toast.success("Confirm Lease");
+    },
+    onError: (error: AxiosError<{ message: string }>) => {
+      toast.error(error?.response?.data?.message ?? "Something went wrong");
+    },
+  });
+};

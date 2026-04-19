@@ -27,6 +27,13 @@ export const useGetLandlordApplications = () => {
   });
 };
 
+export const useGetTenantApplication = () => {
+  return useQuery({
+    queryKey: ["lease_application"],
+    queryFn: leaseApplicationService.getTenantApplication,
+  });
+};
+
 export const useGetApplicationDetails = (id: string) => {
   return useQuery({
     queryKey: ["lease_application", id],

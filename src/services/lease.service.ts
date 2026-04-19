@@ -20,10 +20,15 @@ export const leaseService = {
     return data;
   },
 
-  // update: async (unitId: string, payload: Partial<Unit>) => {
-  //   const { data } = await api.put(`/unit/${unitId}`, payload);
-  //   return data;
-  // },
+  getTenantLease: async () => {
+    const { data } = await api.get("/lease/my-lease");
+    return data;
+  },
+
+  confirmLease: async (lease_id: string) => {
+    const { data } = await api.patch(`/lease/${lease_id}/confirm`);
+    return data;
+  },
   // delete: async (unitId: string) => {
   //   const { data } = await api.delete(`/unit/${unitId}`);
   //   return data;
