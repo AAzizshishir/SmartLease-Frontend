@@ -22,9 +22,11 @@ import {
 } from "@/components/ui/card";
 import { useCreateLeaseApplication } from "@/hooks/useLeaseApplication";
 import { createLeaseApplicationSchema } from "@/validations/lease-application.validation";
+import { useRouter } from "next/navigation";
 
 const LeaseApplicationCard = ({ unitId }: { unitId: string }) => {
   const { mutate, isPending } = useCreateLeaseApplication();
+  const router = useRouter();
 
   const form = useForm({
     defaultValues: {
@@ -41,7 +43,7 @@ const LeaseApplicationCard = ({ unitId }: { unitId: string }) => {
     },
     onSubmit: async ({ value }) => {
       mutate(value, {
-        onSuccess: () => form.reset(),
+        onSuccess: () => router.push("/my-application"),
       });
       console.log(value);
     },

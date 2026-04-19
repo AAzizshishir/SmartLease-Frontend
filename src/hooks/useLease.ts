@@ -51,7 +51,7 @@ export const useConfirmLease = (id: string) => {
     mutationFn: () => leaseService.confirmLease(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["lease", id] });
-      toast.success("Confirm Lease");
+      toast.success("Lease Confirmed");
     },
     onError: (error: AxiosError<{ message: string }>) => {
       toast.error(error?.response?.data?.message ?? "Something went wrong");

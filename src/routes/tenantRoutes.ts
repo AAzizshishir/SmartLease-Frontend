@@ -16,6 +16,10 @@ export const tenantRoutes: Route[] = [
         title: "My Lease",
         url: "/my-lease",
       },
+      {
+        title: "Payment",
+        url: "/payment",
+      },
     ],
   },
 ];

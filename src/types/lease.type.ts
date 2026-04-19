@@ -82,6 +82,11 @@ export interface Lease {
       landlord_id: string;
       name: string;
       city: string;
+      address: string;
+      landlord: {
+        name: string;
+        email: string;
+      };
     };
   };
 }

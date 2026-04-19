@@ -19,7 +19,7 @@ export interface LeaseApplication {
   nid_url?: string | null;
   income_proof_url?: string | null;
 
-  status: "pending" | "approved" | "rejected" | "cancelled";
+  status: "pending" | "approved" | "rejected" | "cancelled" | "expired";
 
   rejection_reason?: string | null;
   reviewed_at?: string | null;

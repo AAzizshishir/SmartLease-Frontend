@@ -54,3 +54,20 @@ export const useApproveApplication = (id: string) => {
     },
   });
 };
+
+// Tenant Cancel Application
+export const useTenantCancelApplication = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (id: string) =>
+      leaseApplicationService.tenantCancelApplication(id),
+    onSuccess: (_data, id) => {
+      queryClient.invalidateQueries({ queryKey: ["lease_application", id] });
+      toast.success("Application Cancelled Successfully");
+    },
+    onError: (error: AxiosError<{ message: string }>) => {
+      toast.error(error?.response?.data?.message ?? "Something went wrong");
+    },
+  });
+};

@@ -30,4 +30,9 @@ export const leaseApplicationService = {
     );
     return data;
   },
+
+  tenantCancelApplication: async (id: string) => {
+    const { data } = await api.patch(`/lease-application/${id}/cancel`);
+    return data;
+  },
 };
