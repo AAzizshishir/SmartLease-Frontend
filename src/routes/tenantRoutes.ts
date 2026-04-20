@@ -9,6 +9,10 @@ export const tenantRoutes: Route[] = [
         url: "/",
       },
       {
+        title: "Profile",
+        url: "/profile",
+      },
+      {
         title: "My Application",
         url: "/my-application",
       },
