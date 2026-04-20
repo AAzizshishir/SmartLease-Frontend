@@ -34,14 +34,14 @@ const AvatarSection = ({
     .slice(0, 2);
 
   return (
-    <div className="relative w-20 h-20 mx-auto">
+    <div className="relative w-20 h-20 mx-auto border border-white rounded-full">
       {image ? (
         <Image
           src={image}
           alt={name}
           width={80}
           height={80}
-          className="w-20 h-20 rounded-full object-cover"
+          className="w-20 h-20 rounded-full object-cove"
         />
       ) : (
         <div className="w-20 h-20 rounded-full bg-muted flex items-center justify-center text-xl font-semibold text-muted-foreground">
@@ -71,7 +71,7 @@ const AvatarSection = ({
   );
 };
 
-// ─── Name Edit ───────────────────────────────────────────────
+// ----- Name Edit ----- //
 
 const NameEdit = ({ currentName }: { currentName: string }) => {
   const [editing, setEditing] = useState(false);
@@ -145,7 +145,7 @@ const NameEdit = ({ currentName }: { currentName: string }) => {
   );
 };
 
-// ─── Main ────────────────────────────────────────────────────
+// ----- Main ----- //
 
 const roleBadgeVariant: Record<string, "default" | "secondary" | "outline"> = {
   ADMIN: "default",
@@ -186,7 +186,9 @@ const ProfileCard = () => {
         <CardTitle className="text-base text-center">My profile</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        <AvatarSection image={user.image} name={user.name} />
+        <div>
+          <AvatarSection image={user.image} name={user.name} />
+        </div>
 
         <div className="text-center space-y-1">
           <NameEdit currentName={user.name} />

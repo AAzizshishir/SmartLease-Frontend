@@ -11,13 +11,14 @@ import { adminNavRoutes } from "@/routes/adminRoutes";
 import { landlordNavRoutes } from "@/routes/landlordRoutes";
 import { tenantNavRoutes } from "@/routes/tenantRoutes";
 import { publicNavRoutes } from "@/routes/publicRoutes";
+import { ModeToggle } from "./modeToggle";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const { data } = useSession();
   const session = data as AppSession | null;
-  const role = session?.user.role;
+  const role = session?.user?.role;
   const email = session?.user.email;
   console.log(session);
 
@@ -42,7 +43,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="border-b bg-white">
+    <nav className="shadow-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         {/* Logo */}
         <Link href="/" className="text-xl font-bold text-blue-600">
@@ -55,7 +56,7 @@ export default function Navbar() {
             <Link
               key={item.title}
               href={item.url}
-              className="text-sm font-medium text-gray-700 hover:text-blue-600"
+              className="text-sm font-medium "
             >
               {item.title}
             </Link>
@@ -64,10 +65,10 @@ export default function Navbar() {
 
         {/* Desktop Auth Buttons */}
         <div className="hidden gap-3 lg:flex">
+          <ModeToggle />
           {session ? (
             <>
               <div>
-                <h2 className="mt-2 mr-2 text-sm font-semibold">{role}</h2>
                 <p>{email}</p>
               </div>
               <Button
@@ -81,13 +82,13 @@ export default function Navbar() {
             <>
               <Link
                 href="/login"
-                className="rounded-md border px-3 py-1 text-sm font-medium hover:bg-gray-100"
+                className="rounded-md border px-3 py-1 text-sm font-medium "
               >
                 Login
               </Link>
               <Link
                 href="/register"
-                className="rounded-md bg-blue-500 px-3 py-1 text-sm font-medium text-white hover:bg-blue-600"
+                className="rounded-md bg-blue-500 px-3 py-1 text-sm font-medium"
               >
                 Sign Up
               </Link>
@@ -108,13 +109,13 @@ export default function Navbar() {
 
       {/* Mobile Nav */}
       {mobileOpen && (
-        <div className="lg:hidden border-t bg-white px-6 py-4">
+        <div className="lg:hidden border-t px-6 py-4">
           <nav className="flex flex-col gap-4">
             {routes.map((item) => (
               <Link
                 key={item.title}
                 href={item.url}
-                className="text-base font-medium text-gray-700 hover:text-blue-600"
+                className="text-base font-medium"
                 onClick={() => setMobileOpen(false)}
               >
                 {item.title}
@@ -122,15 +123,15 @@ export default function Navbar() {
             ))}
           </nav>
           <div className="mt-6 flex flex-col gap-3">
+            <ModeToggle />
             {session ? (
               <>
                 <div>
-                  <h2 className="mt-2 mr-2 text-sm font-semibold">{role}</h2>
                   <p>{email}</p>
                 </div>
                 <Button
                   onClick={() => signOut()}
-                  className="cursor-pointer bg-blue-400 hover:bg-blue-600 text-white"
+                  className="cursor-pointer bg-blue-400"
                 >
                   Logout
                 </Button>
@@ -139,13 +140,13 @@ export default function Navbar() {
               <>
                 <Link
                   href="/login"
-                  className="rounded-md border px-3 py-1 text-sm font-medium hover:bg-gray-100"
+                  className="rounded-md border px-3 py-1 text-sm font-medium"
                 >
                   Login
                 </Link>
                 <Link
                   href="/register"
-                  className="rounded-md bg-blue-500 px-3 py-1 text-sm font-medium text-white hover:bg-blue-600"
+                  className="rounded-md bg-blue-500 px-3 py-1 text-sm font-mediu"
                 >
                   Sign Up
                 </Link>
