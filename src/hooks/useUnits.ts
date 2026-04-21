@@ -57,7 +57,8 @@ export const useUploadUnitImages = (unitId: string) => {
   return useMutation({
     mutationFn: (images: FormData) => unitService.addImage(unitId, images),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["units", unitId] });
+      // queryClient.invalidateQueries({ queryKey: ["units", unitId] });
+      queryClient.refetchQueries({ queryKey: ["units"] });
       toast.success("Image added successfully");
     },
     onError: (error: AxiosError<{ message: string }>) => {

@@ -41,7 +41,7 @@ const TenantLeaseCard = () => {
 
   if (lease.status === "pending_tenant") {
     return (
-      <Card>
+      <Card className="bg-transparent">
         <CardHeader>
           <CardTitle className="text-base">Lease ready for review</CardTitle>
         </CardHeader>

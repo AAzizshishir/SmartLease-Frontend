@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -18,6 +19,8 @@ import LandlordActions from "@/features/landlord/landlord-actions";
 import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton";
 import { CardSkeletonGrid } from "@/components/shared/card-skeleton-grid";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
 
 const UnitDetailsCard = () => {
   const params = useParams();
@@ -47,73 +50,91 @@ const UnitDetailsCard = () => {
       {/* Images Section */}
       <UnitImageCard unitId={unitId} unit={unit} />
 
-      <Card className="w-full max-w-lg mx-auto">
+      <Card className="shadow-md border rounded-lg bg-transparent">
         <CardHeader>
-          <CardTitle>
-            Unit {unit?.unit_number} - {unit?.type}
+          <CardTitle className="text-lg font-bold">
+            Unit {unit?.unit_number} — Floor {unit?.floor}
           </CardTitle>
+          <CardDescription>
+            {unit?.type?.toUpperCase()} • {unit?.area_sqft} sqft
+          </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-2">
-          <p>
-            <strong>Floor:</strong> {unit?.floor}
-          </p>
-          <p>
-            <strong>Bedrooms:</strong> {unit?.bedrooms}
-          </p>
-          <p>
-            <strong>Bathrooms:</strong> {unit?.bathrooms}
-          </p>
-          <p>
-            <strong>Balconies:</strong> {unit?.balconies}
-          </p>
-          <p>
-            <strong>Area:</strong> {unit?.area_sqft} sqft
-          </p>
-          <p>
-            <strong>Furnishing:</strong> {unit?.furnishing_status}
-          </p>
-          <p>
-            <strong>Rent:</strong> {unit?.monthly_rent} BDT
-          </p>
-          <p>
-            <strong>Deposit:</strong> {unit?.security_deposit_months} months
-          </p>
-          <p>
-            <strong>Status:</strong> {unit?.status}
-          </p>
-          <p>
-            <strong>Pet Friendly:</strong>{" "}
-            {unit?.is_pet_friendly ? "Yes" : "No"}
-          </p>
-          <p>
-            <strong>Amenities:</strong>
-            {unit?.has_ac && " AC,"}
-            {unit?.has_gas && " Gas,"}
-            {unit?.has_generator && " Generator,"}
-            {unit?.has_lift && " Lift,"}
-            {unit?.has_parking && " Parking,"}
-            {unit?.has_water_supply && " Water Supply"}
-          </p>
-          <p>
-            <small>
+
+        <CardContent className="grid grid-cols-2 gap-4 text-sm">
+          <div>
+            <p className="font-semibold">Bedrooms</p>
+            <Badge variant="outline">{unit?.bedrooms}</Badge>
+          </div>
+          <div>
+            <p className="font-semibold">Bathrooms</p>
+            <Badge variant="outline">{unit?.bathrooms}</Badge>
+          </div>
+          <div>
+            <p className="font-semibold">Balconies</p>
+            <Badge variant="outline">{unit?.balconies}</Badge>
+          </div>
+          <div>
+            <p className="font-semibold">Furnishing</p>
+            <span className="text-gray-700 dark:text-gray-300">
+              {unit?.furnishing_status}
+            </span>
+          </div>
+          <div>
+            <p className="font-semibold">Rent</p>
+            <span className="text-[#ff9638] font-medium">
+              {unit?.monthly_rent} BDT
+            </span>
+          </div>
+          <div>
+            <p className="font-semibold">Deposit</p>
+            <span>{unit?.security_deposit_months} months</span>
+          </div>
+          <div>
+            <p className="font-semibold">Status</p>
+            <Badge
+              variant={unit?.status === "vacant" ? "default" : "secondary"}
+            >
+              {unit?.status}
+            </Badge>
+          </div>
+          <div>
+            <p className="font-semibold">Pet Friendly</p>
+            <span>{unit?.is_pet_friendly ? "Yes" : "No"}</span>
+          </div>
+        </CardContent>
+
+        <CardFooter className="flex justify-between">
+          <div className="flex flex-col gap-2">
+            <div>
+              <p className="font-semibold">Amenities</p>
+              <div className="flex flex-wrap gap-2 mt-1">
+                {unit?.has_ac && <Badge>AC</Badge>}
+                {unit?.has_gas && <Badge>Gas</Badge>}
+                {unit?.has_generator && <Badge>Generator</Badge>}
+                {unit?.has_lift && <Badge>Lift</Badge>}
+                {unit?.has_parking && <Badge>Parking</Badge>}
+                {unit?.has_water_supply && <Badge>Water</Badge>}
+              </div>
+            </div>
+            <small className="text-gray-500">
               Created at: {new Date(unit?.created_at).toLocaleDateString()}
             </small>
-          </p>
-        </CardContent>
-        <CardFooter>
-          {role === "LANDLORD" ? (
-            <LandlordActions unitId={unit?.id} />
-          ) : role === "TENANT" ? (
-            <div>
+          </div>
+          <div>
+            {role === "LANDLORD" ? (
+              <LandlordActions unitId={unit?.id} />
+            ) : role === "TENANT" ? (
+              <div>
+                <Button>
+                  <Link href={`/units/${unitId}/apply`}>Apply</Link>
+                </Button>
+              </div>
+            ) : (
               <Button>
-                <Link href={`/units/${unitId}/apply`}>Apply</Link>
+                <Link href={"/login"}>Please Login for apply</Link>
               </Button>
-            </div>
-          ) : (
-            <Button>
-              <Link href={"/login"}>Please Login for apply</Link>
-            </Button>
-          )}
+            )}
+          </div>
         </CardFooter>
       </Card>
     </div>

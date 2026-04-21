@@ -21,7 +21,8 @@ const LeaseApplicationList = () => {
 
   if (isLoading) return <ListSkeletonGrid count={10} />;
 
-  if (!applications) return <h2>No Application</h2>;
+  if (applications.length === 0)
+    return <h2 className="text-center mt-10">No Applications Yet</h2>;
 
   return (
     <div>

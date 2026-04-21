@@ -2,7 +2,7 @@ import { NavRoute, Route } from "@/types/routes.type";
 
 export const landlordRoutes: Route[] = [
   {
-    title: "Admin Dashboard",
+    title: "Landlord Dashboard",
     items: [
       {
         title: "Home",

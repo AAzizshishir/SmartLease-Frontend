@@ -13,6 +13,7 @@ const UnitPage = async () => {
     queryKey: ["unit"],
     queryFn: () => unitService.getAll(),
   });
+
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <UnitCard />

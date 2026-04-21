@@ -18,16 +18,19 @@ import { Field, FieldError, FieldGroup } from "../../ui/field";
 import { Input } from "../../ui/input";
 import { Textarea } from "../../ui/textarea";
 import { PropertyType } from "@/types/property.type";
+import { Label } from "@/components/ui/label";
+import { useRouter } from "next/navigation";
 
 const AddPropertyCard = () => {
   const { mutate, isPending } = useCreateProperty();
+  const router = useRouter();
   const form = useForm({
     defaultValues: {
       name: "",
       address: "",
       city: "",
       type: "apartment",
-      total_units: 1,
+      total_units: 0,
       description: "",
     } as CreatePropertyInput,
     validators: {
@@ -35,14 +38,14 @@ const AddPropertyCard = () => {
     },
     onSubmit: async ({ value }) => {
       mutate(value, {
-        onSuccess: () => form.reset(),
+        onSuccess: () => router.push("/propperty"),
       });
     },
   });
   return (
-    <Card>
+    <Card className="bg-transparent">
       <CardHeader>
-        <CardTitle className="text-base">Add new property</CardTitle>
+        <CardTitle className="text-lg text-center">Add new property</CardTitle>
       </CardHeader>
 
       <CardContent>
@@ -61,6 +64,7 @@ const AddPropertyCard = () => {
                   field.state.meta.isTouched && !field.state.meta.isValid;
                 return (
                   <Field data-invalid={isInvalid}>
+                    <Label>Property Name</Label>
                     <Input
                       id={field.name}
                       name={field.name}
@@ -83,6 +87,7 @@ const AddPropertyCard = () => {
                   field.state.meta.isTouched && !field.state.meta.isValid;
                 return (
                   <Field data-invalid={isInvalid}>
+                    <Label>Property Address</Label>
                     <Input
                       id={field.name}
                       name={field.name}
@@ -106,6 +111,7 @@ const AddPropertyCard = () => {
                     field.state.meta.isTouched && !field.state.meta.isValid;
                   return (
                     <Field data-invalid={isInvalid}>
+                      <Label>City</Label>
                       <Input
                         id={field.name}
                         name={field.name}
@@ -127,6 +133,7 @@ const AddPropertyCard = () => {
                     field.state.meta.isTouched && !field.state.meta.isValid;
                   return (
                     <Field data-invalid={isInvalid}>
+                      <Label>Property Type</Label>
                       <select
                         id={field.name}
                         name={field.name}
@@ -134,7 +141,8 @@ const AddPropertyCard = () => {
                         onChange={(e) =>
                           field.handleChange(e.target.value as PropertyType)
                         }
-                        className="border border-gray-300 rounded-md p-2 w-full text-sm"
+                        className="border border-gray-300 rounded-md p-2 w-full text-sm bg-white text-black 
+             dark:bg-[#001524] dark:text-white"
                       >
                         <option value="apartment">Apartment</option>
                         <option value="house">House</option>
@@ -156,11 +164,12 @@ const AddPropertyCard = () => {
                   field.state.meta.isTouched && !field.state.meta.isValid;
                 return (
                   <Field data-invalid={isInvalid}>
+                    <Label>Total Units</Label>
                     <Input
                       type="number"
                       id={field.name}
                       name={field.name}
-                      value={field.state.value}
+                      value={field.state.value ?? ""}
                       placeholder="Enter Total Unit"
                       min={1}
                       max={500}
@@ -183,6 +192,7 @@ const AddPropertyCard = () => {
                   field.state.meta.isTouched && !field.state.meta.isValid;
                 return (
                   <Field data-invalid={isInvalid}>
+                    <Label>Description</Label>
                     <Textarea
                       id={field.name}
                       name={field.name}
@@ -207,7 +217,7 @@ const AddPropertyCard = () => {
         <Button
           form="add-property-form"
           type="submit"
-          className="w-full"
+          className="w-full font-medium cursor-pointer"
           disabled={isPending}
         >
           {isPending ? "Creating..." : "Add property"}

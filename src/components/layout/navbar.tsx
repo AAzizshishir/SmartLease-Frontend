@@ -19,8 +19,6 @@ export default function Navbar() {
   const { data } = useSession();
   const session = data as AppSession | null;
   const role = session?.user?.role;
-  const email = session?.user.email;
-  console.log(session);
 
   let routes: NavRoute[] = [];
 
@@ -46,17 +44,17 @@ export default function Navbar() {
     <nav className="shadow-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         {/* Logo */}
-        <Link href="/" className="text-xl font-bold text-blue-600">
+        <Link href="/" className="text-xl font-bold text-[#ff9638]">
           SmartLease
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden gap-6 lg:flex">
+        <nav className="hidden gap-6 lg:flex ">
           {routes.map((item) => (
             <Link
               key={item.title}
               href={item.url}
-              className="text-sm font-medium "
+              className="text-sm font-medium hover:text-[#ff9638]"
             >
               {item.title}
             </Link>
@@ -68,30 +66,21 @@ export default function Navbar() {
           <ModeToggle />
           {session ? (
             <>
-              <div>
-                <p>{email}</p>
-              </div>
               <Button
                 onClick={() => signOut()}
-                className="cursor-pointer bg-blue-400 hover:bg-blue-600 text-white"
+                className="cursor-pointer bg-btn-primary text-black"
               >
                 Logout
               </Button>
             </>
           ) : (
             <>
-              <Link
-                href="/login"
-                className="rounded-md border px-3 py-1 text-sm font-medium "
-              >
-                Login
-              </Link>
-              <Link
-                href="/register"
-                className="rounded-md bg-blue-500 px-3 py-1 text-sm font-medium"
-              >
-                Sign Up
-              </Link>
+              <Button className="rounded-md border border-border-color hover:bg-btn-primary text-btn-text  px-3 py-1 text-sm font-medium bg-transparent">
+                <Link href="/login">Login</Link>
+              </Button>
+              <Button className="rounded-md bg-btn-primary text-black hover:border-border-color  px-3 py-1 text-sm font-medium">
+                <Link href="/register">Sign Up</Link>
+              </Button>
             </>
           )}
         </div>
@@ -110,12 +99,12 @@ export default function Navbar() {
       {/* Mobile Nav */}
       {mobileOpen && (
         <div className="lg:hidden border-t px-6 py-4">
-          <nav className="flex flex-col gap-4">
+          <nav className="flex flex-col gap-4 ">
             {routes.map((item) => (
               <Link
                 key={item.title}
                 href={item.url}
-                className="text-base font-medium"
+                className="text-base font-medium hover:text-[#ff9638]"
                 onClick={() => setMobileOpen(false)}
               >
                 {item.title}
@@ -126,30 +115,21 @@ export default function Navbar() {
             <ModeToggle />
             {session ? (
               <>
-                <div>
-                  <p>{email}</p>
-                </div>
                 <Button
                   onClick={() => signOut()}
-                  className="cursor-pointer bg-blue-400"
+                  className="cursor-pointer bg-btn-primary hover:bg-[#fd8924] text-white"
                 >
                   Logout
                 </Button>
               </>
             ) : (
               <>
-                <Link
-                  href="/login"
-                  className="rounded-md border px-3 py-1 text-sm font-medium"
-                >
-                  Login
-                </Link>
-                <Link
-                  href="/register"
-                  className="rounded-md bg-blue-500 px-3 py-1 text-sm font-mediu"
-                >
-                  Sign Up
-                </Link>
+                <Button className="rounded-md border border-border-color hover:bg-btn-primary text-btn-text  px-3 py-1 text-sm font-medium bg-transparent">
+                  <Link href="/login">Login</Link>
+                </Button>
+                <Button className="rounded-md bg-btn-primary hover:bg-transparent text-btn-text hover:border-border-color  px-3 py-1 text-sm font-medium">
+                  <Link href="/register">Sign Up</Link>
+                </Button>
               </>
             )}
           </div>

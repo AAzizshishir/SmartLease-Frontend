@@ -174,13 +174,17 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
                       name={field.name}
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}
-                      className="border border-gray-300 rounded-md p-2 "
+                      className="border rounded-md p-2 "
                     >
                       <option value="" disabled>
                         Select Role
                       </option>
-                      <option value="LANDLORD">LANDLORD</option>
-                      <option value="TENANT">TENANT</option>
+                      <option value="LANDLORD" className="text-black">
+                        LANDLORD
+                      </option>
+                      <option value="TENANT" className="text-black">
+                        TENANT
+                      </option>
                     </select>
                     {isInvalid && (
                       <FieldError errors={field.state.meta.errors} />
@@ -196,7 +200,7 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
         <Button
           form="signup-form"
           type="submit"
-          className="w-full cursor-pointer bg-blue-400 hover:bg-blue-600"
+          className="w-full cursor-pointer bg-btn-primary hover:bg-transparent text-btn-text hover:border-border-color"
         >
           Register
         </Button>

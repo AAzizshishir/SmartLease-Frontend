@@ -3,7 +3,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export const CardSkeleton = () => (
   <Card>
-    <Skeleton className="h-48 w-full rounded-t-lg rounded-b-none" />
+    <Skeleton className="h-48 w-full" />
     <CardHeader>
       <Skeleton className="h-4 w-2/3" />
       <Skeleton className="h-3 w-1/2" />

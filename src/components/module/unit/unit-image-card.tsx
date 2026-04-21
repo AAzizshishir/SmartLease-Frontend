@@ -31,16 +31,16 @@ const UnitImageCard = ({ unitId, unit }: { unitId: string; unit: Unit }) => {
   const role = session?.user.role;
 
   return (
-    <div className="border p-4 my-2 rounded-2xl" data-unit-id={unitId}>
+    <div className="border p-6 my-2 rounded-2xl" data-unit-id={unitId}>
       {unit?.images.length === 0 ? (
         <p className="text-sm text-muted-foreground text-center py-6">
           No images yet. Add your first image.
         </p>
       ) : (
-        <div className="grid grid-cols-3 gap-2 overflow-x-auto">
+        <div className="grid grid-cols-3 gap-6 overflow-x-auto">
           {unit?.images.map((img) => (
             <div key={img.id} className="flex flex-col gap-2">
-              <div className="w-full h-48 relative">
+              <div className="w-full h-30 relative">
                 <Image
                   src={img.url}
                   alt="Property image"

@@ -75,7 +75,7 @@ const AddUnitCard = ({ propertyId }: Props) => {
     // },
     onSubmit: async ({ value }) => {
       mutate(value, {
-        onSuccess: () => form.reset(),
+        onSuccess: () => router.back(),
       });
     },
   });
@@ -92,7 +92,7 @@ const AddUnitCard = ({ propertyId }: Props) => {
         <ArrowLeft className="h-4 w-4" />
         Back
       </Button>
-      <Card>
+      <Card className="bg-transparent">
         <CardHeader>
           <CardTitle className="text-base">Add new unit</CardTitle>
         </CardHeader>
@@ -172,7 +172,8 @@ const AddUnitCard = ({ propertyId }: Props) => {
                               | "penthouse",
                           )
                         }
-                        className="border border-gray-300 rounded-md p-2 w-full text-sm"
+                        className="border rounded-md p-2 w-full text-sm bg-white text-black 
+             dark:bg-[#001524] dark:text-white"
                       >
                         <option value="studio">Studio</option>
                         <option value="one_bed">1 Bed</option>
@@ -199,7 +200,8 @@ const AddUnitCard = ({ propertyId }: Props) => {
                               | "fully_furnished",
                           )
                         }
-                        className="border border-gray-300 rounded-md p-2 w-full text-sm"
+                        className="border border-gray-300 rounded-md p-2 w-full text-sm bg-white text-black 
+             dark:bg-[#001524] dark:text-white"
                       >
                         <option value="unfurnished">Unfurnished</option>
                         <option value="semi_furnished">Semi furnished</option>

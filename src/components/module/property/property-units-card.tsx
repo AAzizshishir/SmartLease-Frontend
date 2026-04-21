@@ -24,7 +24,7 @@ const PropertyUnitsCard = ({
   const router = useRouter();
 
   return (
-    <Card>
+    <Card className="bg-transparent">
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <CardTitle className="text-base">Units</CardTitle>
@@ -67,7 +67,7 @@ const PropertyUnitsCard = ({
                     {unit?.type.replace("_", " ")}
                   </TableCell>
                   <TableCell>
-                    ৳ {Number(unit?.monthly_rent).toLocaleString()}
+                    {Number(unit?.monthly_rent).toLocaleString()} BDT
                   </TableCell>
                   <TableCell>
                     <Badge variant={"default"} className="capitalize text-xs">
@@ -78,6 +78,7 @@ const PropertyUnitsCard = ({
                     <Button
                       size="sm"
                       // variant="ghost"
+                      className="cursor-pointer"
                       onClick={() =>
                         router.push(`/property/${propertyId}/unit/${unit.id}`)
                       }

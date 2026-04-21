@@ -26,7 +26,7 @@ const LeaseList = () => {
 
   console.log(data);
   return (
-    <div>
+    <div className="bg-transparent">
       <Table>
         <TableCaption>All Leases</TableCaption>
         <TableHeader>

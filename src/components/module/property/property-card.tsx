@@ -4,9 +4,15 @@ import { useGetMyProperties } from "@/hooks/useProperties";
 import Image from "next/image";
 import { Property } from "@/types/property.type";
 import Link from "next/link";
-import { ImageIcon } from "lucide-react";
+import { Building2, Calendar, Home, ImageIcon, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CardSkeletonGrid } from "@/components/shared/card-skeleton-grid";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 const PropertyCard = () => {
   const { data, isLoading } = useGetMyProperties();
@@ -14,7 +20,7 @@ const PropertyCard = () => {
   const property = data?.data?.data;
   console.log(property);
 
-  if (isLoading) return <CardSkeletonGrid count={6} />;
+  if (isLoading) return <CardSkeletonGrid count={3} />;
 
   if (!property) return <div>No properties</div>;
 
@@ -23,7 +29,7 @@ const PropertyCard = () => {
       {property?.map((property: Property) => (
         <div
           key={property.id}
-          className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition"
+          className=" border rounded-md shadow-md overflow-hidden hover:shadow-xl transition"
         >
           {/* Image */}
           {property.images?.length > 0 ? (
@@ -42,22 +48,23 @@ const PropertyCard = () => {
           )}
 
           {/* Content */}
-          <div className="p-4 space-y-2">
-            <h2 className="text-lg font-semibold">{property.name}</h2>
-
-            <p className="text-sm text-gray-500 capitalize">
+          <div className="p-4 space-y-2 border-[#024374] bg-transparent">
+            <h1 className="flex gap-3">
+              <Home className="w-5 h-5" /> {property.name}
+            </h1>
+            <h3 className="flex gap-3">
+              <Building2 className="w-5 h-5" />
               {property.type} • {property.total_units} Units
-            </p>
-
-            <p className="text-sm text-gray-500">
+            </h3>
+            <p className="flex items-center gap-2">
+              <MapPin className="w-5 h-5" />
               {property.address}, {property.city}
             </p>
-
-            <p className="text-xs text-gray-400">
-              {new Date(property.created_at).toLocaleDateString()}
+            <p className="flex items-center gap-2 text-xs text-gray-500">
+              <Calendar className="w-4 h-4" />
+              Added on {new Date(property.created_at).toLocaleDateString()}
             </p>
-
-            <Button className="w-full mt-2 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+            <Button className="w-full mt-2 transition">
               <Link href={`/property/${property.id}`}>View Details</Link>
             </Button>
           </div>

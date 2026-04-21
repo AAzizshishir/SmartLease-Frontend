@@ -42,10 +42,12 @@ export const useCreateProperty = () => {
 
 // Images
 export const useUploadPropertyImages = (propertyId: string) => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (images: FormData) =>
       propertyService.addImage(propertyId, images),
     onSuccess: () => {
+      queryClient.refetchQueries({ queryKey: ["properties"] });
       toast.success("Image added successfully");
     },
     onError: (error: AxiosError<{ message: string }>) => {

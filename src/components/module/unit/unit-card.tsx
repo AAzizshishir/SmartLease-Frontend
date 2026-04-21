@@ -50,7 +50,7 @@ const UnitCard = () => {
                 <p>{unit.furnishing_status}</p>
                 <p>Monthly Rent: {unit.monthly_rent}BDT</p>
                 <p>Security Deposit Months:{unit.security_deposit_months}</p>
-                <Button className="w-full mt-2 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+                <Button className="w-full mt-2 bg-blue-600 text-white py-2 hover:bg-blue-700 transition">
                   <Link href={`/units/${unit.id}`}>View Details</Link>
                 </Button>
               </div>

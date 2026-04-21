@@ -1,5 +1,6 @@
 "use client";
 
+import { FormSkeleton } from "@/components/shared/form-skeleton";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -59,7 +60,7 @@ const EditUnitCard = () => {
     },
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <FormSkeleton />;
 
   return (
     <div>
@@ -74,7 +75,7 @@ const EditUnitCard = () => {
         Back
       </Button>
 
-      <Card>
+      <Card className="bg-transparent">
         <CardHeader>
           <CardTitle className="text-base">Edit unit</CardTitle>
         </CardHeader>
@@ -107,7 +108,8 @@ const EditUnitCard = () => {
                               | "penthouse",
                           )
                         }
-                        className="border border-gray-300 rounded-md p-2 w-full text-sm"
+                        className="border border-gray-300 rounded-md p-2 w-full text-sm bg-white text-black 
+             dark:bg-[#001524] dark:text-white"
                       >
                         <option value="studio">Studio</option>
                         <option value="one_bed">1 Bed</option>
@@ -134,7 +136,8 @@ const EditUnitCard = () => {
                               | "fully_furnished",
                           )
                         }
-                        className="border border-gray-300 rounded-md p-2 w-full text-sm"
+                        className="border border-gray-100 rounded-md p-2 w-full text-sm bg-white text-black 
+             dark:bg-[#001524] dark:text-white"
                       >
                         <option value="unfurnished">Unfurnished</option>
                         <option value="semi_furnished">Semi furnished</option>

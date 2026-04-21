@@ -68,7 +68,7 @@ const LeaseForm = ({ application }: Props) => {
   });
 
   return (
-    <Card>
+    <Card className="bg-transparent">
       <CardHeader>
         <CardTitle>Lease Create Form</CardTitle>
       </CardHeader>

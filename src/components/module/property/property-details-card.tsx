@@ -45,7 +45,7 @@ const PropertyDetailsCard = () => {
       <PropertyImageCard propertyId={id} images={property.images ?? []} />
 
       {/* Property Info Card */}
-      <Card>
+      <Card className="bg-transparent">
         <CardHeader className="pb-3">
           <div className="flex items-start justify-between">
             <div>
