@@ -36,7 +36,7 @@ const UnitDetailsCard = () => {
   if (isLoading) return <CardSkeletonGrid count={1} />;
 
   return (
-    <div>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-8">
       {/* Back button */}
       <Button
         variant="ghost"
@@ -61,36 +61,36 @@ const UnitDetailsCard = () => {
         </CardHeader>
 
         <CardContent className="grid grid-cols-2 gap-4 text-sm">
-          <div>
-            <p className="font-semibold">Bedrooms</p>
+          <div className="flex gap-1">
+            <p className="font-semibold">Bedrooms :</p>
             <Badge variant="outline">{unit?.bedrooms}</Badge>
           </div>
-          <div>
-            <p className="font-semibold">Bathrooms</p>
+          <div className="flex gap-1">
+            <p className="font-semibold">Bathrooms :</p>
             <Badge variant="outline">{unit?.bathrooms}</Badge>
           </div>
-          <div>
-            <p className="font-semibold">Balconies</p>
+          <div className="flex gap-1">
+            <p className="font-semibold">Balconies :</p>
             <Badge variant="outline">{unit?.balconies}</Badge>
           </div>
-          <div>
-            <p className="font-semibold">Furnishing</p>
+          <div className="flex gap-1">
+            <p className="font-semibold">Furnishing :</p>
             <span className="text-gray-700 dark:text-gray-300">
               {unit?.furnishing_status}
             </span>
           </div>
           <div>
-            <p className="font-semibold">Rent</p>
+            <p className="font-semibold">Rent :</p>
             <span className="text-[#ff9638] font-medium">
               {unit?.monthly_rent} BDT
             </span>
           </div>
           <div>
-            <p className="font-semibold">Deposit</p>
+            <p className="font-semibold">Deposit :</p>
             <span>{unit?.security_deposit_months} months</span>
           </div>
           <div>
-            <p className="font-semibold">Status</p>
+            <p className="font-semibold">Status :</p>
             <Badge
               variant={unit?.status === "vacant" ? "default" : "secondary"}
             >
@@ -98,7 +98,7 @@ const UnitDetailsCard = () => {
             </Badge>
           </div>
           <div>
-            <p className="font-semibold">Pet Friendly</p>
+            <p className="font-semibold">Pet Friendly :</p>
             <span>{unit?.is_pet_friendly ? "Yes" : "No"}</span>
           </div>
         </CardContent>
@@ -106,7 +106,7 @@ const UnitDetailsCard = () => {
         <CardFooter className="flex justify-between">
           <div className="flex flex-col gap-2">
             <div>
-              <p className="font-semibold">Amenities</p>
+              <p className="font-semibold">Amenities :</p>
               <div className="flex flex-wrap gap-2 mt-1">
                 {unit?.has_ac && <Badge>AC</Badge>}
                 {unit?.has_gas && <Badge>Gas</Badge>}

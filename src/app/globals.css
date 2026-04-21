@@ -2,6 +2,10 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+@import "swiper/css";
+@import "swiper/css/navigation";
+@import "swiper/css/pagination";
+
 @custom-variant dark (&:is(.dark *));
 
 /* globals.css */
@@ -46,11 +50,10 @@
   }
 
   .dark {
-    /* Dark mode — grayish dark */
     --background: oklch(0.1867 0.0428 240.07);
     --foreground: oklch(0.985 0 0);
 
-    --card: 222 47% 9%; /* Slightly lighter than bg */
+    --card: 222 47% 9%;
     --card-foreground: 213 31% 91%;
 
     --primary: oklch(0.769 0.1623 57.79);
@@ -72,7 +75,7 @@
     --input: 222 47% 15%;
     --ring: 221 83% 53%;
 
-    --btn-text: oklch(0.145 0 0);
+    --btn-text: oklch(0.985 0 0);
     --btn-primary: oklch(0.769 0.1623 57.79);
     --btn-hover-bg: oklch(71.665% 0.17865 52.505);
     --border-color: oklch(0.769 0.1623 57.79);
@@ -147,7 +150,7 @@
   --popover-foreground: oklch(0.145 0 0);
   /* --primary: oklch(0.205 0 0);
   --primary-foreground: oklch(0.985 0 0); */
-  --primary: oklch(0.75 0.18 50); /* a warm orange */
+  --primary: oklch(0.75 0.18 50);
   --primary-foreground: oklch(0.145 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
@@ -182,7 +185,7 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.75 0.18 50); /* a warm orange */
+  --primary: oklch(0.75 0.18 50);
   --primary-foreground: oklch(0.145 0 0);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);

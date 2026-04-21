@@ -41,20 +41,20 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="shadow-md">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+    <nav className="shadow-md max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className=" flex items-center justify-between py-4">
         {/* Logo */}
         <Link href="/" className="text-xl font-bold text-[#ff9638]">
           SmartLease
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden gap-6 lg:flex ">
+        <nav className="hidden lg:flex ">
           {routes.map((item) => (
             <Link
               key={item.title}
               href={item.url}
-              className="text-sm font-medium hover:text-[#ff9638]"
+              className="text-sm font-medium hover:text-[#ff9638] dark:hover:bg-linear-to-r from-[#037ec0] to-[#011a2e] px-4 py-2 rounded-md"
             >
               {item.title}
             </Link>

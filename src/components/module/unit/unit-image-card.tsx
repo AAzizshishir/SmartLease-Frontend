@@ -40,7 +40,7 @@ const UnitImageCard = ({ unitId, unit }: { unitId: string; unit: Unit }) => {
         <div className="grid grid-cols-3 gap-6 overflow-x-auto">
           {unit?.images.map((img) => (
             <div key={img.id} className="flex flex-col gap-2">
-              <div className="w-full h-30 relative">
+              <div className="w-full h-50 relative">
                 <Image
                   src={img.url}
                   alt="Property image"

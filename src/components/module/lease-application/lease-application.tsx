@@ -50,9 +50,9 @@ const LeaseApplicationCard = ({ unitId }: { unitId: string }) => {
   });
 
   return (
-    <Card className="container mx-auto">
+    <Card className="max-w-7xl mx-auto px-4 sm:px-6 bg-transparent my-8">
       <CardHeader>
-        <CardTitle>Application</CardTitle>
+        <CardTitle className="text-center text-lg">Application</CardTitle>
       </CardHeader>
       <CardContent>
         <form
@@ -169,30 +169,30 @@ const LeaseApplicationCard = ({ unitId }: { unitId: string }) => {
             }}
           </form.Field>
 
-          {/* Work Place Address */}
-          <form.Field name="work_place_address">
-            {(field) => (
-              <div className="space-y-2">
-                <Label>Work Place Address</Label>
-                <Input
-                  placeholder="Company Address"
-                  value={field.state.value}
-                  onChange={(e) => field.handleChange(e.target.value)}
-                />
-              </div>
-            )}
-          </form.Field>
-
           {/* Number of Occupants */}
           <form.Field name="num_occupants">
             {(field) => (
               <div className="space-y-2">
-                <Label>Number of Occupants</Label>
+                <Label>Number of Occupants *</Label>
                 <Input
                   type="number"
                   min={1}
                   value={field.state.value}
                   onChange={(e) => field.handleChange(Number(e.target.value))}
+                />
+              </div>
+            )}
+          </form.Field>
+
+          {/* Work Place Address */}
+          <form.Field name="work_place_address">
+            {(field) => (
+              <div className="space-y-2">
+                <Label>Work Place Address (Optional)</Label>
+                <Input
+                  placeholder="Company Address"
+                  value={field.state.value}
+                  onChange={(e) => field.handleChange(e.target.value)}
                 />
               </div>
             )}

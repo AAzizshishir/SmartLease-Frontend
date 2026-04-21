@@ -46,7 +46,7 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
       onSubmit: formSchema,
     },
     onSubmit: async ({ value }) => {
-      const toastId = toast.loading("Creating user");
+      const toastId = toast.loading("Registering...");
       try {
         const data = await authClient.signUp.email(value);
 
@@ -57,7 +57,7 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
           router.push("/");
         }
 
-        toast.success("User Created Successfully", { id: toastId });
+        toast.success("Registration Successfull", { id: toastId });
       } catch (error) {
         toast.error("Something went wrong, please try again.", { id: toastId });
       }
@@ -65,7 +65,7 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
   });
 
   return (
-    <Card {...props}>
+    <Card {...props} className="bg-transparent">
       <CardHeader>
         <CardTitle>Create an account</CardTitle>
         <CardDescription>
@@ -174,17 +174,14 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
                       name={field.name}
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}
-                      className="border rounded-md p-2 "
+                      className="border border-gray-300 rounded-md p-2 w-full text-sm bg-white text-black 
+             dark:bg-[#001524] dark:text-white"
                     >
                       <option value="" disabled>
                         Select Role
                       </option>
-                      <option value="LANDLORD" className="text-black">
-                        LANDLORD
-                      </option>
-                      <option value="TENANT" className="text-black">
-                        TENANT
-                      </option>
+                      <option value="LANDLORD">LANDLORD</option>
+                      <option value="TENANT">TENANT</option>
                     </select>
                     {isInvalid && (
                       <FieldError errors={field.state.meta.errors} />
