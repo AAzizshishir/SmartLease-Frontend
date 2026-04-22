@@ -3,11 +3,11 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <Card className="w-full border-t mt-10">
+    <Card className="w-full border-t bg-transparent">
       <CardContent className="flex flex-col md:flex-row justify-between items-center py-6">
         {/* Branding */}
         <div className="text-center md:text-left">
-          <h2 className="text-lg font-bold">SmartLease</h2>
+          <h2 className="text-lg font-bold text-primary">SmartLease</h2>
           <p className="text-sm text-muted-foreground">
             Scalable property leasing platform for Bangladesh
           </p>

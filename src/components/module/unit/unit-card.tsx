@@ -16,8 +16,9 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 
-const UnitCard = () => {
-  const { data } = useGetAllUnits();
+const UnitCard = ({ limit }: { limit?: number }) => {
+  const params = limit ? { limit } : undefined;
+  const { data } = useGetAllUnits(params);
   const units = data?.data;
 
   return (

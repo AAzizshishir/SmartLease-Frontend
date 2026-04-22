@@ -7,12 +7,14 @@ import { useSession } from "@/lib/auth-client";
 import { AppSession } from "@/types/session.type";
 import { Unit } from "@/types/unit.type";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const UnitImageCard = ({ unitId, unit }: { unitId: string; unit: Unit }) => {
   const [files, setFiles] = useState<File[]>([]);
   const [showUpload, setShowUpload] = useState(false);
   const { mutate: addImage, isPending } = useUploadUnitImages(unitId);
+  const router = useRouter();
 
   const { mutate: deleteImage, isPending: isDeleting } =
     useDeleteUnitImage(unitId);
@@ -24,6 +26,7 @@ const UnitImageCard = ({ unitId, unit }: { unitId: string; unit: Unit }) => {
       formData.append("images", file);
     });
     addImage(formData);
+    router.push("/property");
   };
 
   const { data: sessionData } = useSession();

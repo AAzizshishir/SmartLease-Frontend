@@ -20,10 +20,10 @@ export const useCreateUnit = (propertyId: string) => {
   });
 };
 
-export const useGetAllUnits = () => {
+export const useGetAllUnits = (params?: Record<string, unknown>) => {
   return useQuery({
-    queryKey: ["unit"],
-    queryFn: () => unitService.getAll(),
+    queryKey: ["unit", params],
+    queryFn: () => unitService.getAll(params),
   });
 };
 

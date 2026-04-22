@@ -285,7 +285,7 @@ const AddUnitCard = ({ propertyId }: Props) => {
                       field.state.meta.isTouched && !field.state.meta.isValid;
                     return (
                       <Field data-invalid={isInvalid}>
-                        <Label>Monthly rent (৳)</Label>
+                        <Label>Monthly rent (BDT)</Label>
                         <Input
                           type="number"
                           min={0}
