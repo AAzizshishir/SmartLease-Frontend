@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <Card className="w-full border-t bg-transparent">
+    <Card className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 border-t bg-transparent">
       <CardContent className="flex flex-col md:flex-row justify-between items-center py-6">
         {/* Branding */}
         <div className="text-center md:text-left">

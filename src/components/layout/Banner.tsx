@@ -107,7 +107,7 @@ const Banner = () => {
 
               {/* Content */}
               <div className="relative z-10 h-full flex items-center">
-                <div className="container mx-auto px-6 md:px-12 max-w-5xl">
+                <div className="container mx-auto px-6 md:px-12 max-w-7xl">
                   {/* Badge */}
                   <div className="flex items-center gap-2 mb-4">
                     <Home className="h-3.5 w-3.5 text-primary" />
