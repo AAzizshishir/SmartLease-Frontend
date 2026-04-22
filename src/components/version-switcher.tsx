@@ -1,40 +1,43 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar"
-import { GalleryVerticalEndIcon, ChevronsUpDownIcon, CheckIcon } from "lucide-react"
+} from "@/components/ui/sidebar";
+import {
+  GalleryVerticalEndIcon,
+  ChevronsUpDownIcon,
+  CheckIcon,
+} from "lucide-react";
 
 export function VersionSwitcher({
   versions,
   defaultVersion,
 }: {
-  versions: string[]
-  defaultVersion: string
+  versions: string[];
+  defaultVersion: string;
 }) {
-  const [selectedVersion, setSelectedVersion] = React.useState(defaultVersion)
+  const [selectedVersion, setSelectedVersion] = React.useState(defaultVersion);
   return (
     <SidebarMenu>
       <SidebarMenuItem>
         <DropdownMenu>
-          <DropdownMenuTrigger
-            render={
-              <SidebarMenuButton
-                size="lg"
-                className="data-open:bg-sidebar-accent data-open:text-sidebar-accent-foreground"
-              />
-            }
-          >
+          <DropdownMenuTrigger>
+            <SidebarMenuButton
+              size="lg"
+              className="data-open:bg-sidebar-accent data-open:text-sidebar-accent-foreground"
+            />
+
+            <DropdownMenuTrigger />
             <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
               <GalleryVerticalEndIcon className="size-4" />
             </div>
@@ -60,5 +63,5 @@ export function VersionSwitcher({
         </DropdownMenu>
       </SidebarMenuItem>
     </SidebarMenu>
-  )
+  );
 }
