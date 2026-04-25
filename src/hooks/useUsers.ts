@@ -1,3 +1,4 @@
+import { getAllUsers, getMe } from "@/app/_actions/user.action";
 import { userService } from "@/services/user.service";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
@@ -6,14 +7,14 @@ import { toast } from "sonner";
 export const useGetAllUsers = () => {
   return useQuery({
     queryKey: ["users"],
-    queryFn: userService.getAllUsers,
+    queryFn: () => getAllUsers(),
   });
 };
 
 export const useGetProfile = () => {
   return useQuery({
     queryKey: ["users"],
-    queryFn: userService.getMe,
+    queryFn: getMe,
   });
 };
 

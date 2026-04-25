@@ -1,3 +1,4 @@
+import { getMyProperties } from "@/app/_actions/property.action";
 import { propertyService } from "@/services/property.service";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
@@ -12,10 +13,10 @@ export const useGetProperties = (params?: Record<string, unknown>) => {
 };
 
 // Get for landlord
-export const useGetMyProperties = (params?: Record<string, unknown>) => {
+export const useGetMyProperties = () => {
   return useQuery({
-    queryKey: ["properties", params],
-    queryFn: () => propertyService.getMy(params),
+    queryKey: ["properties"],
+    queryFn: () => getMyProperties(),
   });
 };
 
