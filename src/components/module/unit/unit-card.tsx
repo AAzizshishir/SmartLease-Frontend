@@ -15,11 +15,18 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import Pagination from "@/components/shared/pagination";
 
-const UnitCard = ({ limit }: { limit?: number }) => {
-  const params = limit ? { limit } : undefined;
-  const { data } = useGetAllUnits(params);
+const UnitCard = () => {
+  const searchParams = useSearchParams();
+  const page = Number(searchParams.get("page")) || 1;
+  const limit = Number(searchParams.get("limit")) || 5;
+
+  const { data } = useGetAllUnits({ page, limit });
   const units = data?.data;
+  const meta = data?.meta;
+  console.log(data);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -107,6 +114,15 @@ const UnitCard = ({ limit }: { limit?: number }) => {
           </Card>
         ))}
       </div>
+      {/* Pagination */}
+      {meta && (
+        <Pagination
+          totalPages={meta.totalPages}
+          currentPage={meta.page}
+          total={meta.total}
+          limit={meta.limit}
+        />
+      )}
     </div>
   );
 };

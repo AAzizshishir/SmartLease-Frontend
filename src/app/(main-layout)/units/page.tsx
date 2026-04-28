@@ -6,17 +6,25 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 
-const UnitPage = async () => {
+interface Props {
+  searchParams: { page?: string; limit?: string };
+}
+
+const UnitPage = async ({ searchParams }: Props) => {
+  const page = Number(searchParams.page) || 1;
+  const limit = Number(searchParams.limit) || 5;
+
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ["unit"],
-    queryFn: () => unitService.getAll(),
+    queryKey: ["unit", { page, limit }],
+    queryFn: () => unitService.getAll({ page, limit }),
   });
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <UnitCard />
+      {/* <Pagination /> */}
     </HydrationBoundary>
   );
 };
