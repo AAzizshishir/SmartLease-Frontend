@@ -31,7 +31,7 @@ const UnitCard = ({
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {units?.map((unit: Unit) => (
           <Card
             key={unit.id}
@@ -57,19 +57,22 @@ const UnitCard = ({
               <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
 
               {/* Type Badge */}
-              <Badge className="absolute top-3 left-3 bg-white/90 text-black backdrop-blur">
+              <Badge className="absolute top-3 left-3 bg-[#ff9638] text-black backdrop-blur">
                 {unit.type}
               </Badge>
-
-              {/* Price on image */}
-              <div className="absolute bottom-3 left-3 text-white">
-                <p className="text-lg font-semibold">BDT {unit.monthly_rent}</p>
-                <span className="text-xs opacity-80">per month</span>
-              </div>
             </div>
 
             {/* Content */}
             <CardContent>
+              {/* Price on image */}
+              <div className="flex items-center gap-2">
+                <p className="text-lg font-semibold text-[#ff9638]">
+                  {unit.monthly_rent} BDT
+                </p>
+                <span className="relative text-sm opacity-80 top-1 left-0">
+                  per month
+                </span>
+              </div>
               {/* Title */}
               <div className="flex justify-between items-center">
                 <h2 className="font-semibold text-lg">
