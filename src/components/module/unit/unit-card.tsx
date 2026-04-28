@@ -5,17 +5,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useGetAllUnits } from "@/hooks/useUnits";
 import { Unit } from "@/types/unit.type";
-import {
-  ImageIcon,
-  BedDouble,
-  Bath,
-  Ruler,
-  Building2,
-  Heart,
-} from "lucide-react";
+import { ImageIcon, BedDouble, Bath, Ruler, Building2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import Pagination from "@/components/shared/pagination";
 
 type UnitCardProps = {
@@ -23,6 +15,7 @@ type UnitCardProps = {
   limit?: number;
   sortBy?: string;
   sortOrder?: "asc" | "desc";
+  showPagination?: boolean;
 };
 
 const UnitCard = ({
@@ -30,6 +23,7 @@ const UnitCard = ({
   limit = 6,
   sortBy,
   sortOrder,
+  showPagination = true,
 }: UnitCardProps) => {
   const { data } = useGetAllUnits({ page, limit, sortBy, sortOrder });
   const units = data?.data;
@@ -122,7 +116,7 @@ const UnitCard = ({
         ))}
       </div>
       {/* Pagination */}
-      {meta && (
+      {showPagination && meta && (
         <Pagination
           totalPages={meta.totalPages}
           currentPage={meta.page}

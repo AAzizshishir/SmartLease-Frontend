@@ -24,13 +24,18 @@ const BestDeals = async () => {
     <HydrationBoundary state={dehydrate(queryClient)}>
       <Card className="bg-transparent">
         <CardHeader>
-          <CardTitle className="text-[#ff9638] font-bold pl-10">
+          <CardTitle className="text-2xl font-bold text-center mb-4 text-[#ff9638]">
             Best Deals
           </CardTitle>
         </CardHeader>
         <CardContent>
           {/* Reuse UnitCard with props */}
-          <UnitCard limit={3} sortBy="monthly_rent" sortOrder="asc" />
+          <UnitCard
+            limit={3}
+            sortBy="monthly_rent"
+            sortOrder="asc"
+            showPagination={false}
+          />
         </CardContent>
       </Card>
     </HydrationBoundary>

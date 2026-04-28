@@ -5,6 +5,7 @@ import {
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
+import { Suspense } from "react";
 
 interface Props {
   searchParams: { page?: string; limit?: string };
@@ -23,8 +24,10 @@ const UnitPage = async ({ searchParams }: Props) => {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <UnitCard />
-      {/* <Pagination /> */}
+      {/* Wrap UnitCard in Suspense because it uses useSearchParams */}
+      <Suspense fallback={<div>Loading units...</div>}>
+        <UnitCard />
+      </Suspense>
     </HydrationBoundary>
   );
 };
