@@ -16,9 +16,7 @@ import {
 
 const PropertyCard = () => {
   const { data, isLoading } = useGetMyProperties();
-  // console.log(data?.data.data);
   const property = data?.data?.data;
-  console.log(property);
 
   if (isLoading) return <CardSkeletonGrid count={3} />;
 

@@ -22,7 +22,6 @@ const TenantApplicationCard = () => {
   const { mutate, isPending } = useTenantCancelApplication();
 
   const applications = data?.data;
-  console.log(applications);
   if (isLoading) return <CardSkeletonGrid count={3} />;
 
   if (!applications) {

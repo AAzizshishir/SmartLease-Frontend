@@ -63,7 +63,6 @@ const LeaseForm = ({ application }: Props) => {
           router.back();
         },
       });
-      console.log(value);
     },
   });
 

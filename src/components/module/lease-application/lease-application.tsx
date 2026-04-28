@@ -45,7 +45,6 @@ const LeaseApplicationCard = ({ unitId }: { unitId: string }) => {
       mutate(value, {
         onSuccess: () => router.push("/my-application"),
       });
-      console.log(value);
     },
   });
 

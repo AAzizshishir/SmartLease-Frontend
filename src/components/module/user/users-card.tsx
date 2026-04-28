@@ -23,8 +23,6 @@ const UsersList = () => {
 
   const users = data?.data;
 
-  console.log(users);
-
   return (
     <div>
       <Table>
