@@ -18,15 +18,22 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import Pagination from "@/components/shared/pagination";
 
-const UnitCard = () => {
-  const searchParams = useSearchParams();
-  const page = Number(searchParams.get("page")) || 1;
-  const limit = Number(searchParams.get("limit")) || 5;
+type UnitCardProps = {
+  page?: number;
+  limit?: number;
+  sortBy?: string;
+  sortOrder?: "asc" | "desc";
+};
 
-  const { data } = useGetAllUnits({ page, limit });
+const UnitCard = ({
+  page = 1,
+  limit = 6,
+  sortBy,
+  sortOrder,
+}: UnitCardProps) => {
+  const { data } = useGetAllUnits({ page, limit, sortBy, sortOrder });
   const units = data?.data;
   const meta = data?.meta;
-  console.log(data);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

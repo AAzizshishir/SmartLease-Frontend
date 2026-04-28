@@ -12,7 +12,7 @@ interface Props {
 
 const UnitPage = async ({ searchParams }: Props) => {
   const page = Number(searchParams.page) || 1;
-  const limit = Number(searchParams.limit) || 5;
+  const limit = Number(searchParams.limit) || 6;
 
   const queryClient = new QueryClient();
 
