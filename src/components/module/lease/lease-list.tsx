@@ -24,7 +24,6 @@ const LeaseList = () => {
 
   if (!data) return <h2>You have no active Lease</h2>;
 
-  console.log(data);
   return (
     <div className="bg-transparent">
       <Table>

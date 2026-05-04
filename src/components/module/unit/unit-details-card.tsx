@@ -17,21 +17,23 @@ import { useParams, useRouter } from "next/navigation";
 import UnitImageCard from "./unit-image-card";
 import LandlordActions from "@/features/landlord/landlord-actions";
 import Link from "next/link";
-import { Skeleton } from "@/components/ui/skeleton";
 import { CardSkeletonGrid } from "@/components/shared/card-skeleton-grid";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
+import { useGetTenantLease } from "@/hooks/useLease";
 
 const UnitDetailsCard = () => {
   const params = useParams();
   const router = useRouter();
   const unitId = params.unit_id as string;
   const { data, isLoading } = useGetUnitDetails(unitId);
+  const { data: tenantLeaseData } = useGetTenantLease();
   const unit = data?.data;
 
   const { data: sessionData } = useSession();
   const session = sessionData as AppSession | null;
   const role = session?.user.role;
+
+  console.log(tenantLeaseData);
 
   if (isLoading) return <CardSkeletonGrid count={1} />;
 
@@ -125,9 +127,15 @@ const UnitDetailsCard = () => {
               <LandlordActions unitId={unit?.id} />
             ) : role === "TENANT" ? (
               <div>
-                <Button>
-                  <Link href={`/units/${unitId}/apply`}>Apply</Link>
-                </Button>
+                {tenantLeaseData?.data?.status === "active" ? (
+                  <Button variant="outline" disabled>
+                    Lease Active
+                  </Button>
+                ) : (
+                  <Button>
+                    <Link href={`/units/${unitId}/apply`}>Apply</Link>
+                  </Button>
+                )}
               </div>
             ) : (
               <Button>
