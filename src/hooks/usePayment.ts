@@ -27,3 +27,9 @@ export const usePayNow = () =>
       toast.error(error?.response?.data?.message ?? "Payment failed");
     },
   });
+
+export const useGetPaymentSummary = () =>
+  useQuery({
+    queryKey: ["payment"],
+    queryFn: paymentService.getPaymentSummary,
+  });

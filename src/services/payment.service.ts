@@ -8,4 +8,9 @@ export const paymentService = {
 
   payNow: (paymentId: string) =>
     api.patch(`/payment/${paymentId}/pay`).then((r) => r.data),
+
+  getPaymentSummary: async () => {
+    const { data } = await api.get("/payment/summary");
+    return data;
+  },
 };

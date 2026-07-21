@@ -29,7 +29,6 @@ const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
   password: z.string().min(8, "Minimum length is 8"),
   email: z.email(),
-  role: z.string().transform((value) => value.toUpperCase()),
 });
 
 export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
@@ -40,7 +39,6 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
       name: "",
       email: "",
       password: "",
-      role: "",
     },
     validators: {
       onSubmit: formSchema,
@@ -162,7 +160,7 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
               }}
             </form.Field>
             {/* Role */}
-            <form.Field name="role">
+            {/* <form.Field name="role">
               {(field) => {
                 const isInvalid =
                   field.state.meta.isTouched && !field.state.meta.isValid;
@@ -189,7 +187,7 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
                   </Field>
                 );
               }}
-            </form.Field>
+            </form.Field> */}
           </FieldGroup>
         </form>
       </CardContent>
