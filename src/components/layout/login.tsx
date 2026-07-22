@@ -25,6 +25,8 @@ import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import { Separator } from "../ui/separator";
+import { GoogleLoginButton } from "../auth/googleLoginButton";
 
 const formSchema = z.object({
   password: z.string(),
@@ -142,7 +144,7 @@ export function LoginForm({
             </FieldGroup>
           </form>
         </CardContent>
-        <CardFooter>
+        <CardFooter className="flex flex-col gap-2 justify-end">
           <Button
             form="login-form"
             type="submit"
@@ -150,6 +152,15 @@ export function LoginForm({
           >
             Login
           </Button>
+          {/* Divider */}
+          <div className="relative">
+            <Separator />
+            <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-background px-2 text-xs text-muted-foreground">
+              or
+            </span>
+          </div>
+          {/* Google Login */}
+          <GoogleLoginButton />
         </CardFooter>
         <FieldDescription className="text-center">
           Don&apos;t have an account? <Link href="/register">Sign up</Link>

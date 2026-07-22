@@ -19,11 +19,14 @@ import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 import { useForm } from "@tanstack/react-form";
 import { Eye, EyeOff } from "lucide-react";
+import { FaGoogle } from "react-icons/fa";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import * as z from "zod";
+import { Separator } from "../ui/separator";
+import { GoogleLoginButton } from "../auth/googleLoginButton";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -159,39 +162,10 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
                 );
               }}
             </form.Field>
-            {/* Role */}
-            {/* <form.Field name="role">
-              {(field) => {
-                const isInvalid =
-                  field.state.meta.isTouched && !field.state.meta.isValid;
-
-                return (
-                  <Field>
-                    <select
-                      id={field.name}
-                      name={field.name}
-                      value={field.state.value}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      className="border border-gray-300 rounded-md p-2 w-full text-sm bg-white text-black 
-             dark:bg-[#001524] dark:text-white"
-                    >
-                      <option value="" disabled>
-                        Select Role
-                      </option>
-                      <option value="LANDLORD">LANDLORD</option>
-                      <option value="TENANT">TENANT</option>
-                    </select>
-                    {isInvalid && (
-                      <FieldError errors={field.state.meta.errors} />
-                    )}
-                  </Field>
-                );
-              }}
-            </form.Field> */}
           </FieldGroup>
         </form>
       </CardContent>
-      <CardFooter className="flex flex-col gap-5 justify-end">
+      <CardFooter className="flex flex-col gap-2 justify-end">
         <Button
           form="signup-form"
           type="submit"
@@ -199,6 +173,15 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
         >
           Register
         </Button>
+        {/* Divider */}
+        <div className="relative">
+          <Separator />
+          <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-background px-2 text-xs text-muted-foreground">
+            or
+          </span>
+        </div>
+        {/* Google Login */}
+        <GoogleLoginButton />
       </CardFooter>
       <FieldDescription className="flex items-center justify-center gap-2">
         Already have an account?
