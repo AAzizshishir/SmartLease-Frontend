@@ -12,7 +12,7 @@ export const GoogleLoginButton = () => {
     setIsPending(true);
     await authClient.signIn.social({
       provider: "google",
-      callbackURL: "/dashboard",
+      callbackURL: "/",
     });
     setIsPending(false);
   };
