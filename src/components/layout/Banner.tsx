@@ -140,7 +140,7 @@ const Banner = () => {
                       asChild
                       size="lg"
                       variant="outline"
-                      className="bg-transparent border-white/40 text-white hover:bg-white/10 hover:border-white"
+                      className="bg-transparent border-white/40 text-white hover:border-white"
                     >
                       <Link href={slide.secondaryBtn.href}>
                         {slide.secondaryBtn.label}

@@ -12,13 +12,18 @@ import { landlordNavRoutes } from "@/routes/landlordRoutes";
 import { tenantNavRoutes } from "@/routes/tenantRoutes";
 import { publicNavRoutes } from "@/routes/publicRoutes";
 import { ModeToggle } from "./modeToggle";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
 
   const { data } = useSession();
   const session = data as AppSession | null;
   const role = session?.user?.role;
+
+  const isActiveRoute = (url: string) =>
+    pathname === url || (url !== "/" && pathname.startsWith(`${url}/`));
 
   let routes: NavRoute[] = [];
 
@@ -54,7 +59,11 @@ export default function Navbar() {
             <Link
               key={item.title}
               href={item.url}
-              className="text-sm font-medium hover:text-[#ff9638] dark:hover:bg-linear-to-r from-[#037ec0] to-[#011a2e] px-4 py-2 rounded-md"
+              className={`text-sm font-medium px-4 py-2 rounded-md hover:text-[#ff9638] dark:hover:bg-linear-to-r from-[#037ec0] to-[#183b58] ${
+                isActiveRoute(item.url)
+                  ? "text-[#ff9638] dark:bg-[#011a2e]"
+                  : ""
+              }`}
             >
               {item.title}
             </Link>
@@ -104,7 +113,9 @@ export default function Navbar() {
               <Link
                 key={item.title}
                 href={item.url}
-                className="text-base font-medium hover:text-[#ff9638]"
+                className={`text-base font-medium hover:text-[#ff9638] ${
+                  isActiveRoute(item.url) ? "text-[#ff9638]" : ""
+                }`}
                 onClick={() => setMobileOpen(false)}
               >
                 {item.title}

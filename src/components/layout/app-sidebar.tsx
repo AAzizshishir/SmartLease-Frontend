@@ -19,12 +19,17 @@ import { Route } from "@/types/routes.type";
 import { adminRoutes } from "@/routes/adminRoutes";
 import { landlordRoutes } from "@/routes/landlordRoutes";
 import { tenantRoutes } from "@/routes/tenantRoutes";
+import { usePathname } from "next/navigation";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { data } = useSession();
+  const pathname = usePathname();
+  console.log(pathname);
   const session = data as AppSession | null;
   const role = session?.user.role?.toLowerCase();
   let routes: Route[] = [];
+
+  const activeLinks = (url: string) => pathname === url;
 
   switch (role) {
     case "admin":
@@ -54,7 +59,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <SidebarMenu>
                 {item.items.map((item) => (
                   <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton className="py-6 hover:text-[#ff9638] dark:hover:bg-linear-to-r from-[#037ec0] to-[#011a2e]">
+                    <SidebarMenuButton
+                      className={`py-6 hover:text-[#ff9638] dark:hover:bg-linear-to-r from-[#037ec0] to-[#011a2e] ${
+                        activeLinks(item.url)
+                          ? "text-[#ff9638] dark:bg-[#011a2e]"
+                          : ""
+                      }`}
+                    >
                       <Link href={item.url}>{item.title}</Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>

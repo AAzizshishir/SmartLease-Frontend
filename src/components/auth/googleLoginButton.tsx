@@ -12,7 +12,7 @@ export const GoogleLoginButton = () => {
     setIsPending(true);
     await authClient.signIn.social({
       provider: "google",
-      callbackURL: "/",
+      callbackURL: "https://smartlease-frontend.vercel.app",
     });
     setIsPending(false);
   };
