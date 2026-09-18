@@ -13,4 +13,9 @@ export const paymentService = {
     const { data } = await api.get("/payment/summary");
     return data;
   },
+
+  getAllLandlordPayments: async () => {
+    const { data } = await api.get("/payment/allLandlordPayments");
+    return data;
+  },
 };

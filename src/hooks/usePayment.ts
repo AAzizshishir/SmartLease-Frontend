@@ -33,3 +33,10 @@ export const useGetPaymentSummary = () =>
     queryKey: ["payment"],
     queryFn: paymentService.getPaymentSummary,
   });
+
+export const useGetAllLandlordPayments = () => {
+  return useQuery({
+    queryKey: ["payments"],
+    queryFn: paymentService.getAllLandlordPayments,
+  });
+};

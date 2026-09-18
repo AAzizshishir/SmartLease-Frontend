@@ -32,6 +32,10 @@ export const landlordRoutes: Route[] = [
         title: "Payment Summary",
         url: "/payment-summary",
       },
+      {
+        title: "All Payments",
+        url: "/all-lease-payment",
+      },
     ],
   },
 ];

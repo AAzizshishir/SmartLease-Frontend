@@ -24,7 +24,6 @@ import { usePathname } from "next/navigation";
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { data } = useSession();
   const pathname = usePathname();
-  console.log(pathname);
   const session = data as AppSession | null;
   const role = session?.user.role?.toLowerCase();
   let routes: Route[] = [];
