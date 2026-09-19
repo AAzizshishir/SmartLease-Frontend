@@ -1,19 +1,35 @@
 import type { Metadata } from "next";
-import { DM_Sans, Inter, Geist } from "next/font/google";
+import {
+  DM_Sans,
+  Inter,
+  Geist,
+  Cormorant_Garamond,
+  Raleway,
+} from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import Providers from "./providers";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 
-const inter = Inter({
-  variable: "--font-inter",
+// const inter = Inter({
+//   variable: "--font-inter",
+//   subsets: ["latin"],
+// });
+
+// const dmSans = DM_Sans({
+//   subsets: ["latin"],
+//   variable: "--font-dm-sans",
+// });
+
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant-garamond",
   subsets: ["latin"],
 });
 
-const dmSans = DM_Sans({
+const raleway = Raleway({
+  variable: "--font-raleway",
   subsets: ["latin"],
-  variable: "--font-dm-sans",
 });
 
 export const metadata: Metadata = {
@@ -29,7 +45,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={cn(inter.variable, dmSans.variable, "font-sans antialiased")}
+        className={cn(
+          cormorant.variable,
+          raleway.variable,
+          "font-cormorant-garamond font-raleway antialiased",
+        )}
       >
         <ThemeProvider
           attribute="class"

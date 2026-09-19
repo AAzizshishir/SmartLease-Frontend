@@ -367,7 +367,6 @@ const AddUnitCard = ({ propertyId }: Props) => {
                           selected={field.state.value}
                           onSelect={(date) => field.handleChange(date)}
                           disabled={(date) => date < new Date()}
-                          initialFocus
                         />
                       </PopoverContent>
                     </Popover>

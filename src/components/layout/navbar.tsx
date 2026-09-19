@@ -46,20 +46,27 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="shadow-md max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav
+      className={`${
+        pathname === "/" ? "absolute top-0 left-0 z-20 w-full" : "relative"
+      } max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-transparent text-white`}
+    >
       <div className=" flex items-center justify-between py-4">
         {/* Logo */}
-        <Link href="/" className="text-xl font-bold text-[#ff9638]">
+        <Link
+          href="/"
+          className="font-heading text-xl font-bold text-[#ff9638]"
+        >
           SmartLease
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden lg:flex ">
+        <nav className="hidden lg:flex bg-transparent">
           {routes.map((item) => (
             <Link
               key={item.title}
               href={item.url}
-              className={`text-sm font-medium px-4 py-2 rounded-md hover:text-[#ff9638] dark:hover:bg-linear-to-r from-[#037ec0] to-[#183b58] ${
+              className={`font-sans text-sm font-medium px-4 py-2 rounded-md hover:text-[#ff9638] dark:hover:bg-linear-to-r from-[#037ec0] to-[#183b58] ${
                 isActiveRoute(item.url)
                   ? "text-[#ff9638] dark:bg-[#011a2e]"
                   : ""
@@ -113,7 +120,7 @@ export default function Navbar() {
               <Link
                 key={item.title}
                 href={item.url}
-                className={`text-base font-medium hover:text-[#ff9638] ${
+                className={`font-sans text-base font-medium hover:text-[#ff9638] ${
                   isActiveRoute(item.url) ? "text-[#ff9638]" : ""
                 }`}
                 onClick={() => setMobileOpen(false)}
