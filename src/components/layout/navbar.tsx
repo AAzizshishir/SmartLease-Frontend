@@ -66,11 +66,23 @@ export default function Navbar() {
             <Link
               key={item.title}
               href={item.url}
-              className={`font-raleway text-[11px] font-medium px-4 py-2 rounded-md hover:text-[#ff9638] dark:hover:text-[#ff9638] uppercase tracking-[3px] ${
-                isActiveRoute(item.url)
-                  ? "text-[#ff9638] dark:hover:text-[#ff9638]"
-                  : ""
-              }`}
+              className={`relative px-4 py-2 font-raleway text-[11px] font-medium uppercase tracking-[3px] rounded-md transition-colors duration-200 hover:text-[#ff9638] dark:hover:text-[#ff9638]
+        after:absolute
+        after:left-3.5
+        after:-bottom-[-3px]
+        after:h-px
+        after:w-[calc(100%-1.9rem)]
+        after:origin-left
+        after:scale-x-0
+        after:bg-current
+        after:content-['']
+        after:transition-transform
+        after:duration-300
+        after:ease-in
+        hover:after:scale-x-100
+
+        ${isActiveRoute(item.url) ? "text-[#ff9638] after:scale-x-100" : ""}
+      `}
             >
               {item.title}
             </Link>
